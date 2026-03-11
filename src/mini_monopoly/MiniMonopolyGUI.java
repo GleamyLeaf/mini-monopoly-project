@@ -159,6 +159,49 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
         landName9 = new javax.swing.JLabel();
         landPrice9 = new javax.swing.JLabel();
         ownerColor9 = new javax.swing.JPanel();
+        slot10 = new javax.swing.JPanel();
+        slotNum10 = new javax.swing.JLabel();
+        landName10 = new javax.swing.JLabel();
+        landPrice10 = new javax.swing.JLabel();
+        ownerColor10 = new javax.swing.JPanel();
+        slot11 = new javax.swing.JPanel();
+        slotNum11 = new javax.swing.JLabel();
+        landName11 = new javax.swing.JLabel();
+        landPrice11 = new javax.swing.JLabel();
+        ownerColor11 = new javax.swing.JPanel();
+        slot12 = new javax.swing.JPanel();
+        slotNum12 = new javax.swing.JLabel();
+        landName12 = new javax.swing.JLabel();
+        landPrice12 = new javax.swing.JLabel();
+        ownerColor12 = new javax.swing.JPanel();
+        slot13 = new javax.swing.JPanel();
+        slotNum13 = new javax.swing.JLabel();
+        landName13 = new javax.swing.JLabel();
+        landPrice13 = new javax.swing.JLabel();
+        ownerColor13 = new javax.swing.JPanel();
+        slot14 = new javax.swing.JPanel();
+        slotNum14 = new javax.swing.JLabel();
+        landName14 = new javax.swing.JLabel();
+        landPrice14 = new javax.swing.JLabel();
+        ownerColor14 = new javax.swing.JPanel();
+        slot15 = new javax.swing.JPanel();
+        slotNum15 = new javax.swing.JLabel();
+        slot16 = new javax.swing.JPanel();
+        slotNum16 = new javax.swing.JLabel();
+        slot17 = new javax.swing.JPanel();
+        slotNum17 = new javax.swing.JLabel();
+        slot18 = new javax.swing.JPanel();
+        slotNum18 = new javax.swing.JLabel();
+        slot19 = new javax.swing.JPanel();
+        slotNum19 = new javax.swing.JLabel();
+        landName15 = new javax.swing.JLabel();
+        landPrice15 = new javax.swing.JLabel();
+        ownerColor15 = new javax.swing.JPanel();
+        slot20 = new javax.swing.JPanel();
+        slotNum20 = new javax.swing.JLabel();
+        landName16 = new javax.swing.JLabel();
+        landPrice16 = new javax.swing.JLabel();
+        ownerColor16 = new javax.swing.JPanel();
         actionPanel = new javax.swing.JPanel();
         diceButton = new javax.swing.JButton();
         diceNum = new javax.swing.JLabel();
@@ -431,6 +474,7 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
         );
 
         gameBoardPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        gameBoardPanel.setLayout(null);
 
         slot0.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -449,6 +493,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addComponent(slotNum0)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        gameBoardPanel.add(slot0);
+        slot0.setBounds(8, 2, 75, 117);
 
         slot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -495,6 +542,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addComponent(ownerColor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        gameBoardPanel.add(slot1);
+        slot1.setBounds(95, 2, 75, 117);
+
         slot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         slotNum2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -539,6 +589,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ownerColor2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        gameBoardPanel.add(slot2);
+        slot2.setBounds(176, 2, 75, 117);
 
         slot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -585,6 +638,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addComponent(ownerColor3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        gameBoardPanel.add(slot3);
+        slot3.setBounds(257, 2, 75, 117);
+
         slot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         slotNum4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -602,6 +658,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addComponent(slotNum4)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        gameBoardPanel.add(slot4);
+        slot4.setBounds(338, 2, 75, 117);
 
         slot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -621,6 +680,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        gameBoardPanel.add(slot5);
+        slot5.setBounds(419, 2, 75, 117);
+
         slot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         slotNum6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -638,6 +700,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addComponent(slotNum6)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        gameBoardPanel.add(slot6);
+        slot6.setBounds(500, 2, 75, 117);
 
         slot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -684,6 +749,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addComponent(ownerColor7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        gameBoardPanel.add(slot7);
+        slot7.setBounds(581, 2, 80, 117);
+
         slot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         slotNum8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -728,6 +796,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ownerColor8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        gameBoardPanel.add(slot8);
+        slot8.setBounds(667, 2, 81, 117);
 
         slot9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -774,49 +845,428 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addComponent(ownerColor9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout gameBoardPanelLayout = new javax.swing.GroupLayout(gameBoardPanel);
-        gameBoardPanel.setLayout(gameBoardPanelLayout);
-        gameBoardPanelLayout.setHorizontalGroup(
-            gameBoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gameBoardPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(slot0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(slot1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(slot2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(slot3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(slot4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(slot5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(slot6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(slot7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(slot8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(slot9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        gameBoardPanel.add(slot9);
+        slot9.setBounds(754, 2, 80, 117);
+
+        slot10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum10.setText("10");
+
+        landName10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landName10.setText("Land 3");
+
+        landPrice10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landPrice10.setText("$1800");
+
+        ownerColor10.setBackground(new java.awt.Color(153, 153, 153));
+
+        javax.swing.GroupLayout ownerColor10Layout = new javax.swing.GroupLayout(ownerColor10);
+        ownerColor10.setLayout(ownerColor10Layout);
+        ownerColor10Layout.setHorizontalGroup(
+            ownerColor10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        gameBoardPanelLayout.setVerticalGroup(
-            gameBoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gameBoardPanelLayout.createSequentialGroup()
-                .addGroup(gameBoardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(slot9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(slot1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(slot2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(slot3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(slot4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(slot5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(slot6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(slot8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(slot7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(slot0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(424, Short.MAX_VALUE))
+        ownerColor10Layout.setVerticalGroup(
+            ownerColor10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 49, Short.MAX_VALUE)
         );
+
+        javax.swing.GroupLayout slot10Layout = new javax.swing.GroupLayout(slot10);
+        slot10.setLayout(slot10Layout);
+        slot10Layout.setHorizontalGroup(
+            slot10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(landName10, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+            .addComponent(landPrice10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ownerColor10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        slot10Layout.setVerticalGroup(
+            slot10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot10Layout.createSequentialGroup()
+                .addComponent(slotNum10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landName10, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landPrice10, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ownerColor10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        gameBoardPanel.add(slot10);
+        slot10.setBounds(10, 130, 70, 117);
+
+        slot11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum11.setText("11");
+
+        landName11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landName11.setText("Land 3");
+
+        landPrice11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landPrice11.setText("$1800");
+
+        ownerColor11.setBackground(new java.awt.Color(153, 153, 153));
+
+        javax.swing.GroupLayout ownerColor11Layout = new javax.swing.GroupLayout(ownerColor11);
+        ownerColor11.setLayout(ownerColor11Layout);
+        ownerColor11Layout.setHorizontalGroup(
+            ownerColor11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ownerColor11Layout.setVerticalGroup(
+            ownerColor11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 49, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout slot11Layout = new javax.swing.GroupLayout(slot11);
+        slot11.setLayout(slot11Layout);
+        slot11Layout.setHorizontalGroup(
+            slot11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(landName11, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+            .addComponent(landPrice11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ownerColor11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        slot11Layout.setVerticalGroup(
+            slot11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot11Layout.createSequentialGroup()
+                .addComponent(slotNum11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landName11, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landPrice11, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ownerColor11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        gameBoardPanel.add(slot11);
+        slot11.setBounds(90, 130, 70, 117);
+
+        slot12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum12.setText("12");
+
+        landName12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landName12.setText("Land 3");
+
+        landPrice12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landPrice12.setText("$1800");
+
+        ownerColor12.setBackground(new java.awt.Color(153, 153, 153));
+
+        javax.swing.GroupLayout ownerColor12Layout = new javax.swing.GroupLayout(ownerColor12);
+        ownerColor12.setLayout(ownerColor12Layout);
+        ownerColor12Layout.setHorizontalGroup(
+            ownerColor12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ownerColor12Layout.setVerticalGroup(
+            ownerColor12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 49, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout slot12Layout = new javax.swing.GroupLayout(slot12);
+        slot12.setLayout(slot12Layout);
+        slot12Layout.setHorizontalGroup(
+            slot12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(landName12, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+            .addComponent(landPrice12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ownerColor12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        slot12Layout.setVerticalGroup(
+            slot12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot12Layout.createSequentialGroup()
+                .addComponent(slotNum12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landName12, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landPrice12, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ownerColor12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        gameBoardPanel.add(slot12);
+        slot12.setBounds(170, 130, 70, 117);
+
+        slot13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum13.setText("13");
+
+        landName13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landName13.setText("Land 3");
+
+        landPrice13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landPrice13.setText("$1800");
+
+        ownerColor13.setBackground(new java.awt.Color(153, 153, 153));
+
+        javax.swing.GroupLayout ownerColor13Layout = new javax.swing.GroupLayout(ownerColor13);
+        ownerColor13.setLayout(ownerColor13Layout);
+        ownerColor13Layout.setHorizontalGroup(
+            ownerColor13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ownerColor13Layout.setVerticalGroup(
+            ownerColor13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 49, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout slot13Layout = new javax.swing.GroupLayout(slot13);
+        slot13.setLayout(slot13Layout);
+        slot13Layout.setHorizontalGroup(
+            slot13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(landName13, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+            .addComponent(landPrice13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ownerColor13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        slot13Layout.setVerticalGroup(
+            slot13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot13Layout.createSequentialGroup()
+                .addComponent(slotNum13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landName13, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landPrice13, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ownerColor13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        gameBoardPanel.add(slot13);
+        slot13.setBounds(250, 130, 70, 117);
+
+        slot14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum14.setText("14");
+
+        landName14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landName14.setText("Land 3");
+
+        landPrice14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landPrice14.setText("$1800");
+
+        ownerColor14.setBackground(new java.awt.Color(153, 153, 153));
+
+        javax.swing.GroupLayout ownerColor14Layout = new javax.swing.GroupLayout(ownerColor14);
+        ownerColor14.setLayout(ownerColor14Layout);
+        ownerColor14Layout.setHorizontalGroup(
+            ownerColor14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ownerColor14Layout.setVerticalGroup(
+            ownerColor14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 49, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout slot14Layout = new javax.swing.GroupLayout(slot14);
+        slot14.setLayout(slot14Layout);
+        slot14Layout.setHorizontalGroup(
+            slot14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(landName14, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+            .addComponent(landPrice14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ownerColor14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        slot14Layout.setVerticalGroup(
+            slot14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot14Layout.createSequentialGroup()
+                .addComponent(slotNum14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landName14, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landPrice14, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ownerColor14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        gameBoardPanel.add(slot14);
+        slot14.setBounds(330, 130, 70, 117);
+
+        slot15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum15.setText("15");
+
+        javax.swing.GroupLayout slot15Layout = new javax.swing.GroupLayout(slot15);
+        slot15.setLayout(slot15Layout);
+        slot15Layout.setHorizontalGroup(
+            slot15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum15, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+        );
+        slot15Layout.setVerticalGroup(
+            slot15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot15Layout.createSequentialGroup()
+                .addComponent(slotNum15)
+                .addGap(0, 99, Short.MAX_VALUE))
+        );
+
+        gameBoardPanel.add(slot15);
+        slot15.setBounds(410, 130, 75, 117);
+
+        slot16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum16.setText("16");
+
+        javax.swing.GroupLayout slot16Layout = new javax.swing.GroupLayout(slot16);
+        slot16.setLayout(slot16Layout);
+        slot16Layout.setHorizontalGroup(
+            slot16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum16, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+        );
+        slot16Layout.setVerticalGroup(
+            slot16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot16Layout.createSequentialGroup()
+                .addComponent(slotNum16)
+                .addGap(0, 99, Short.MAX_VALUE))
+        );
+
+        gameBoardPanel.add(slot16);
+        slot16.setBounds(490, 130, 75, 117);
+
+        slot17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum17.setText("17");
+
+        javax.swing.GroupLayout slot17Layout = new javax.swing.GroupLayout(slot17);
+        slot17.setLayout(slot17Layout);
+        slot17Layout.setHorizontalGroup(
+            slot17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum17, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+        );
+        slot17Layout.setVerticalGroup(
+            slot17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot17Layout.createSequentialGroup()
+                .addComponent(slotNum17)
+                .addGap(0, 99, Short.MAX_VALUE))
+        );
+
+        gameBoardPanel.add(slot17);
+        slot17.setBounds(580, 130, 75, 117);
+
+        slot18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum18.setText("18");
+
+        javax.swing.GroupLayout slot18Layout = new javax.swing.GroupLayout(slot18);
+        slot18.setLayout(slot18Layout);
+        slot18Layout.setHorizontalGroup(
+            slot18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum18, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+        );
+        slot18Layout.setVerticalGroup(
+            slot18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot18Layout.createSequentialGroup()
+                .addComponent(slotNum18)
+                .addGap(0, 99, Short.MAX_VALUE))
+        );
+
+        gameBoardPanel.add(slot18);
+        slot18.setBounds(660, 130, 75, 117);
+
+        slot19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum19.setText("19");
+
+        landName15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landName15.setText("Land 3");
+
+        landPrice15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landPrice15.setText("$1800");
+
+        ownerColor15.setBackground(new java.awt.Color(153, 153, 153));
+
+        javax.swing.GroupLayout ownerColor15Layout = new javax.swing.GroupLayout(ownerColor15);
+        ownerColor15.setLayout(ownerColor15Layout);
+        ownerColor15Layout.setHorizontalGroup(
+            ownerColor15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ownerColor15Layout.setVerticalGroup(
+            ownerColor15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 49, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout slot19Layout = new javax.swing.GroupLayout(slot19);
+        slot19.setLayout(slot19Layout);
+        slot19Layout.setHorizontalGroup(
+            slot19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(landName15, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+            .addComponent(landPrice15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ownerColor15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        slot19Layout.setVerticalGroup(
+            slot19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot19Layout.createSequentialGroup()
+                .addComponent(slotNum19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landName15, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landPrice15, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ownerColor15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        gameBoardPanel.add(slot19);
+        slot19.setBounds(750, 130, 80, 117);
+
+        slot20.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum20.setText("19");
+
+        landName16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landName16.setText("Land 3");
+
+        landPrice16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landPrice16.setText("$1800");
+
+        ownerColor16.setBackground(new java.awt.Color(153, 153, 153));
+
+        javax.swing.GroupLayout ownerColor16Layout = new javax.swing.GroupLayout(ownerColor16);
+        ownerColor16.setLayout(ownerColor16Layout);
+        ownerColor16Layout.setHorizontalGroup(
+            ownerColor16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ownerColor16Layout.setVerticalGroup(
+            ownerColor16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 49, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout slot20Layout = new javax.swing.GroupLayout(slot20);
+        slot20.setLayout(slot20Layout);
+        slot20Layout.setHorizontalGroup(
+            slot20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(landName16, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+            .addComponent(landPrice16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ownerColor16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        slot20Layout.setVerticalGroup(
+            slot20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot20Layout.createSequentialGroup()
+                .addComponent(slotNum20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landName16, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landPrice16, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ownerColor16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        gameBoardPanel.add(slot20);
+        slot20.setBounds(10, 260, 80, 117);
 
         actionPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -996,18 +1446,39 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel landName1;
+    private javax.swing.JLabel landName10;
+    private javax.swing.JLabel landName11;
+    private javax.swing.JLabel landName12;
+    private javax.swing.JLabel landName13;
+    private javax.swing.JLabel landName14;
+    private javax.swing.JLabel landName15;
+    private javax.swing.JLabel landName16;
     private javax.swing.JLabel landName2;
     private javax.swing.JLabel landName3;
     private javax.swing.JLabel landName7;
     private javax.swing.JLabel landName8;
     private javax.swing.JLabel landName9;
     private javax.swing.JLabel landPrice1;
+    private javax.swing.JLabel landPrice10;
+    private javax.swing.JLabel landPrice11;
+    private javax.swing.JLabel landPrice12;
+    private javax.swing.JLabel landPrice13;
+    private javax.swing.JLabel landPrice14;
+    private javax.swing.JLabel landPrice15;
+    private javax.swing.JLabel landPrice16;
     private javax.swing.JLabel landPrice2;
     private javax.swing.JLabel landPrice3;
     private javax.swing.JLabel landPrice7;
     private javax.swing.JLabel landPrice8;
     private javax.swing.JLabel landPrice9;
     private javax.swing.JPanel ownerColor1;
+    private javax.swing.JPanel ownerColor10;
+    private javax.swing.JPanel ownerColor11;
+    private javax.swing.JPanel ownerColor12;
+    private javax.swing.JPanel ownerColor13;
+    private javax.swing.JPanel ownerColor14;
+    private javax.swing.JPanel ownerColor15;
+    private javax.swing.JPanel ownerColor16;
     private javax.swing.JPanel ownerColor2;
     private javax.swing.JPanel ownerColor3;
     private javax.swing.JPanel ownerColor7;
@@ -1027,7 +1498,18 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private javax.swing.JLabel positionLabel4;
     private javax.swing.JPanel slot0;
     private javax.swing.JPanel slot1;
+    private javax.swing.JPanel slot10;
+    private javax.swing.JPanel slot11;
+    private javax.swing.JPanel slot12;
+    private javax.swing.JPanel slot13;
+    private javax.swing.JPanel slot14;
+    private javax.swing.JPanel slot15;
+    private javax.swing.JPanel slot16;
+    private javax.swing.JPanel slot17;
+    private javax.swing.JPanel slot18;
+    private javax.swing.JPanel slot19;
     private javax.swing.JPanel slot2;
+    private javax.swing.JPanel slot20;
     private javax.swing.JPanel slot3;
     private javax.swing.JPanel slot4;
     private javax.swing.JPanel slot5;
@@ -1037,7 +1519,18 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private javax.swing.JPanel slot9;
     private javax.swing.JLabel slotNum0;
     private javax.swing.JLabel slotNum1;
+    private javax.swing.JLabel slotNum10;
+    private javax.swing.JLabel slotNum11;
+    private javax.swing.JLabel slotNum12;
+    private javax.swing.JLabel slotNum13;
+    private javax.swing.JLabel slotNum14;
+    private javax.swing.JLabel slotNum15;
+    private javax.swing.JLabel slotNum16;
+    private javax.swing.JLabel slotNum17;
+    private javax.swing.JLabel slotNum18;
+    private javax.swing.JLabel slotNum19;
     private javax.swing.JLabel slotNum2;
+    private javax.swing.JLabel slotNum20;
     private javax.swing.JLabel slotNum3;
     private javax.swing.JLabel slotNum4;
     private javax.swing.JLabel slotNum5;
