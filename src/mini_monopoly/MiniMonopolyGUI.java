@@ -24,9 +24,46 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
         replaceLandInfo();
     }
     
-    private void replaceLandInfo(){
-        System.out.println("ff");
-        
+    private void replaceLandInfo() {
+        JSONArray lands = loadLandsFromJson();
+        if (lands == null || lands.size() < 3) {
+            System.err.println("Not enough lands in JSON or failed to load");
+            return;
+        }
+
+        for (int i = 1; i <= 3; i++) {
+            try {
+                JSONObject land = (JSONObject) lands.get(i - 1);  // 0→1, 1→2, 2→3
+
+                String name = (String) land.get("name");
+                Number price = (Number) land.get("price");
+
+                landNameLabels[i].setText(name != null ? name : "???");
+                landPriceLabels[i].setText(price != null ? "$" + price : "-");
+            } catch (Exception e) {
+                landNameLabels[i].setText("Error");
+                landPriceLabels[i].setText("?");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private JSONArray loadLandsFromJson() {
+        try {
+            InputStreamReader reader = new InputStreamReader(
+                getClass().getResourceAsStream("/resources/board.json"),
+                StandardCharsets.UTF_8
+            );
+
+            JSONParser parser = new JSONParser();
+            JSONArray array = (JSONArray) parser.parse(reader);
+            reader.close();
+            return array;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Failed to load /resources/board.json");
+            return null;
+        }
     }
 
     /**
