@@ -89,8 +89,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 String name = (String) land.get("name");
                 Number price = (Number) land.get("price");
 
-                landNameLabels[i].setText(name != null ? name : "???");
-                landPriceLabels[i].setText(price != null ? "$" + price : "-");
+                landNameLabels[i].setText(name);
+                landPriceLabels[i].setText("$" + price);
+                
             } catch (Exception e) {
                 landNameLabels[i].setText("Error");
                 landPriceLabels[i].setText("?");
@@ -2448,7 +2449,6 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private javax.swing.JLabel statusLabel4;
     // End of variables declaration//GEN-END:variables
 
-    // Add near the other variable declarations (inside the class)
     private final javax.swing.JLabel[] landNameLabels;
     private final javax.swing.JLabel[] landPriceLabels;
 }
