@@ -1,14 +1,24 @@
 [
-  {
-    "name": "Mediterranean Avenue",
-    "price": 60
-  },
-  {
-    "name": "Community Chest",
-    "price": 0
-  },
-  {
-    "name": "Baltic Avenue",
-    "price": 60
-  }
+  {"name": "Cheung Chau", "price": 1200},
+  {"name": "Mui Wo", "price": 1400},
+  {"name": "Tai O", "price": 1600},
+  {"name": "Tung Chung", "price": 1800},
+  {"name": "Discovery Bay", "price": 2100},
+  {"name": "Tsuen Wan", "price": 2300},
+  {"name": "Kwai Chung", "price": 2500},
+  {"name": "Tsing Yi", "price": 2700},
+  {"name": "Tuen Mun", "price": 2900},
+  {"name": "Yuen Long", "price": 3100},
+  {"name": "Tin Shui Wai", "price": 3300},
+  {"name": "Tai Po", "price": 3500},
+  {"name": "Fanling", "price": 3700},
+  {"name": "Sheung Shui", "price": 3900},
+  {"name": "Sha Tin", "price": 4200},
+  {"name": "Ma On Shan", "price": 4400},
+  {"name": "Tseung Kwan O", "price": 4600},
+  {"name": "Sai Kung", "price": 4800},
+  {"name": "Mong Kok", "price": 5000},
+  {"name": "Sham Shui Po", "price": 4800},
+  {"name": "Tsim Sha Tsui", "price": 5000},
+  {"name": "Causeway Bay", "price": 5000}
 ]

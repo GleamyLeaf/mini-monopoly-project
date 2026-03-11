@@ -21,6 +21,19 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
      */
     public MiniMonopolyGUI() {
         initComponents();
+        
+        landNameLabels = new javax.swing.JLabel[] {
+            landName1,
+            landName2,
+            landName3
+        };
+
+        landPriceLabels = new javax.swing.JLabel[] {
+            landPrice1,
+            landPrice2,
+            landPrice3
+        };
+        
         replaceLandInfo();
     }
     
@@ -31,9 +44,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             return;
         }
 
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 0; i <= 2; i++) {
             try {
-                JSONObject land = (JSONObject) lands.get(i - 1);  // 0→1, 1→2, 2→3
+                JSONObject land = (JSONObject) lands.get(i);
 
                 String name = (String) land.get("name");
                 Number price = (Number) land.get("price");
@@ -114,17 +127,17 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
         landName2 = new javax.swing.JLabel();
         landPrice2 = new javax.swing.JLabel();
         ownerColor2 = new javax.swing.JPanel();
+        slot3 = new javax.swing.JPanel();
+        slotNum3 = new javax.swing.JLabel();
+        landName3 = new javax.swing.JLabel();
+        landPrice3 = new javax.swing.JLabel();
+        ownerColor3 = new javax.swing.JPanel();
         slot4 = new javax.swing.JPanel();
         slotNum4 = new javax.swing.JLabel();
         slot5 = new javax.swing.JPanel();
         slotNum5 = new javax.swing.JLabel();
         slot6 = new javax.swing.JPanel();
         slotNum6 = new javax.swing.JLabel();
-        slot3 = new javax.swing.JPanel();
-        slotNum3 = new javax.swing.JLabel();
-        landName3 = new javax.swing.JLabel();
-        landPrice3 = new javax.swing.JLabel();
-        ownerColor3 = new javax.swing.JPanel();
         actionPanel = new javax.swing.JPanel();
         diceButton = new javax.swing.JButton();
         diceNum = new javax.swing.JLabel();
@@ -506,6 +519,51 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addComponent(ownerColor2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        slot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        slotNum3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        slotNum3.setText("3");
+
+        landName3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landName3.setText("Land 2");
+
+        landPrice3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        landPrice3.setText("$1800");
+
+        ownerColor3.setBackground(new java.awt.Color(153, 153, 153));
+
+        javax.swing.GroupLayout ownerColor3Layout = new javax.swing.GroupLayout(ownerColor3);
+        ownerColor3.setLayout(ownerColor3Layout);
+        ownerColor3Layout.setHorizontalGroup(
+            ownerColor3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ownerColor3Layout.setVerticalGroup(
+            ownerColor3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout slot3Layout = new javax.swing.GroupLayout(slot3);
+        slot3.setLayout(slot3Layout);
+        slot3Layout.setHorizontalGroup(
+            slot3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(slotNum3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(landName3, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+            .addComponent(landPrice3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ownerColor3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        slot3Layout.setVerticalGroup(
+            slot3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(slot3Layout.createSequentialGroup()
+                .addComponent(slotNum3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landName3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(landPrice3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ownerColor3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         slot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         slotNum4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -558,51 +616,6 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             .addGroup(slot6Layout.createSequentialGroup()
                 .addComponent(slotNum6)
                 .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        slot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        slotNum3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        slotNum3.setText("3");
-
-        landName3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        landName3.setText("Land 2");
-
-        landPrice3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        landPrice3.setText("$1800");
-
-        ownerColor3.setBackground(new java.awt.Color(153, 153, 153));
-
-        javax.swing.GroupLayout ownerColor3Layout = new javax.swing.GroupLayout(ownerColor3);
-        ownerColor3.setLayout(ownerColor3Layout);
-        ownerColor3Layout.setHorizontalGroup(
-            ownerColor3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        ownerColor3Layout.setVerticalGroup(
-            ownerColor3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout slot3Layout = new javax.swing.GroupLayout(slot3);
-        slot3.setLayout(slot3Layout);
-        slot3Layout.setHorizontalGroup(
-            slot3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(slotNum3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(landName3, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-            .addComponent(landPrice3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(ownerColor3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        slot3Layout.setVerticalGroup(
-            slot3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(slot3Layout.createSequentialGroup()
-                .addComponent(slotNum3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(landName3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(landPrice3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ownerColor3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout gameBoardPanelLayout = new javax.swing.GroupLayout(gameBoardPanel);
@@ -858,19 +871,8 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private javax.swing.JLabel statusLabel3;
     private javax.swing.JLabel statusLabel4;
     // End of variables declaration//GEN-END:variables
-    
-    // Add near the other variable declarations (inside the class)
-    private final javax.swing.JLabel[] landNameLabels = {
-        null,           // index 0 not used (or future GO)
-        landName1,
-        landName2,
-        landName3
-    };
 
-    private final javax.swing.JLabel[] landPriceLabels = {
-        null,
-        landPrice1,
-        landPrice2,
-        landPrice3
-    };
+    // Add near the other variable declarations (inside the class)
+    private final javax.swing.JLabel[] landNameLabels;
+    private final javax.swing.JLabel[] landPriceLabels;
 }
