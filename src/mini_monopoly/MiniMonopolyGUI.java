@@ -135,24 +135,36 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
         positionLabel1 = new javax.swing.JLabel();
         statusLabel1 = new javax.swing.JLabel();
         colorPanel1 = new javax.swing.JPanel();
+        balance1 = new javax.swing.JLabel();
+        position1 = new javax.swing.JLabel();
+        status1 = new javax.swing.JLabel();
         player2Panel = new javax.swing.JPanel();
         player2Label = new javax.swing.JLabel();
         balanceLabel2 = new javax.swing.JLabel();
         positionLabel2 = new javax.swing.JLabel();
         statusLabel2 = new javax.swing.JLabel();
         colorPanel2 = new javax.swing.JPanel();
+        balance2 = new javax.swing.JLabel();
+        position2 = new javax.swing.JLabel();
+        status2 = new javax.swing.JLabel();
         player3Panel = new javax.swing.JPanel();
         player3Label = new javax.swing.JLabel();
         balanceLabel3 = new javax.swing.JLabel();
         positionLabel3 = new javax.swing.JLabel();
         statusLabel3 = new javax.swing.JLabel();
         colorPanel3 = new javax.swing.JPanel();
+        status3 = new javax.swing.JLabel();
+        balance3 = new javax.swing.JLabel();
+        position3 = new javax.swing.JLabel();
         player4Panel = new javax.swing.JPanel();
         player4Label = new javax.swing.JLabel();
         balanceLabel4 = new javax.swing.JLabel();
         positionLabel4 = new javax.swing.JLabel();
         statusLabel4 = new javax.swing.JLabel();
         colorPanel4 = new javax.swing.JPanel();
+        balance4 = new javax.swing.JLabel();
+        status4 = new javax.swing.JLabel();
+        position4 = new javax.swing.JLabel();
         gameBoardPanel = new javax.swing.JPanel();
         slot0 = new javax.swing.JPanel();
         slotNum0 = new javax.swing.JLabel();
@@ -314,6 +326,8 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
         buyLandButton = new javax.swing.JButton();
         endTurnButton = new javax.swing.JButton();
         editorButton = new javax.swing.JButton();
+        currentTurnLabel = new javax.swing.JLabel();
+        playerTurn = new javax.swing.JLabel();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -347,6 +361,12 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             .addGap(0, 29, Short.MAX_VALUE)
         );
 
+        balance1.setText("$2000");
+
+        position1.setText("0");
+
+        status1.setText("Active");
+
         javax.swing.GroupLayout player1PanelLayout = new javax.swing.GroupLayout(player1Panel);
         player1Panel.setLayout(player1PanelLayout);
         player1PanelLayout.setHorizontalGroup(
@@ -357,13 +377,22 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                     .addGroup(player1PanelLayout.createSequentialGroup()
                         .addGroup(player1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(player1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(balanceLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                            .addGroup(player1PanelLayout.createSequentialGroup()
+                                .addComponent(balanceLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(balance1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                         .addComponent(colorPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(player1PanelLayout.createSequentialGroup()
-                        .addGroup(player1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(positionLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(player1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(player1PanelLayout.createSequentialGroup()
+                                .addComponent(statusLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(status1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(player1PanelLayout.createSequentialGroup()
+                                .addComponent(positionLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(position1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -376,12 +405,18 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                     .addGroup(player1PanelLayout.createSequentialGroup()
                         .addComponent(player1Label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(balanceLabel1)))
+                        .addGroup(player1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(balanceLabel1)
+                            .addComponent(balance1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(positionLabel1)
+                .addGroup(player1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(positionLabel1)
+                    .addComponent(position1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(player1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(statusLabel1)
+                    .addComponent(status1))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         player2Panel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -412,6 +447,12 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             .addGap(0, 29, Short.MAX_VALUE)
         );
 
+        balance2.setText("$2000");
+
+        position2.setText("0");
+
+        status2.setText("Active");
+
         javax.swing.GroupLayout player2PanelLayout = new javax.swing.GroupLayout(player2Panel);
         player2Panel.setLayout(player2PanelLayout);
         player2PanelLayout.setHorizontalGroup(
@@ -420,16 +461,21 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(player2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(player2PanelLayout.createSequentialGroup()
-                        .addGroup(player2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(player2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(balanceLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                        .addComponent(colorPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(player2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE))
                     .addGroup(player2PanelLayout.createSequentialGroup()
                         .addGroup(player2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(balanceLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(positionLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(statusLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(player2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(balance2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(player2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(status2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(position2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(colorPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         player2PanelLayout.setVerticalGroup(
@@ -441,11 +487,18 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                     .addGroup(player2PanelLayout.createSequentialGroup()
                         .addComponent(player2Label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(balanceLabel2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(positionLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusLabel2)
+                        .addGroup(player2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(balanceLabel2)
+                            .addGroup(player2PanelLayout.createSequentialGroup()
+                                .addComponent(balance2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(player2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(position2)
+                                    .addComponent(positionLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(player2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(status2)
+                                    .addComponent(statusLabel2))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -477,6 +530,12 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             .addGap(0, 29, Short.MAX_VALUE)
         );
 
+        status3.setText("Active");
+
+        balance3.setText("$2000");
+
+        position3.setText("0");
+
         javax.swing.GroupLayout player3PanelLayout = new javax.swing.GroupLayout(player3Panel);
         player3Panel.setLayout(player3PanelLayout);
         player3PanelLayout.setHorizontalGroup(
@@ -485,16 +544,21 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(player3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(player3PanelLayout.createSequentialGroup()
-                        .addGroup(player3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(player3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(balanceLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                        .addComponent(colorPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(player3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE))
                     .addGroup(player3PanelLayout.createSequentialGroup()
                         .addGroup(player3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(balanceLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(positionLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(statusLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(player3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(balance3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(player3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(status3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(position3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(colorPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         player3PanelLayout.setVerticalGroup(
@@ -506,11 +570,19 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                     .addGroup(player3PanelLayout.createSequentialGroup()
                         .addComponent(player3Label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(balanceLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(positionLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusLabel3)
+                        .addGroup(player3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(player3PanelLayout.createSequentialGroup()
+                                .addComponent(balanceLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(positionLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(statusLabel3))
+                            .addGroup(player3PanelLayout.createSequentialGroup()
+                                .addComponent(balance3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(position3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(status3)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -542,6 +614,12 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             .addGap(0, 29, Short.MAX_VALUE)
         );
 
+        balance4.setText("$2000");
+
+        status4.setText("Active");
+
+        position4.setText("0");
+
         javax.swing.GroupLayout player4PanelLayout = new javax.swing.GroupLayout(player4Panel);
         player4Panel.setLayout(player4PanelLayout);
         player4PanelLayout.setHorizontalGroup(
@@ -550,16 +628,21 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(player4PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(player4PanelLayout.createSequentialGroup()
-                        .addGroup(player4PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(player4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(balanceLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                        .addComponent(colorPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(player4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE))
                     .addGroup(player4PanelLayout.createSequentialGroup()
                         .addGroup(player4PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(balanceLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(positionLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(statusLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(player4PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(balance4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(player4PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(status4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(position4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(colorPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         player4PanelLayout.setVerticalGroup(
@@ -571,11 +654,19 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                     .addGroup(player4PanelLayout.createSequentialGroup()
                         .addComponent(player4Label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(balanceLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(positionLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusLabel4)
+                        .addGroup(player4PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(player4PanelLayout.createSequentialGroup()
+                                .addComponent(balanceLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(positionLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(statusLabel4))
+                            .addGroup(player4PanelLayout.createSequentialGroup()
+                                .addComponent(balance4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(position4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(status4)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -2112,7 +2203,7 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
 
         diceNum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         diceNum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        diceNum.setText("5");
+        diceNum.setText("8");
 
         buyLandButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         buyLandButton.setText("Buy Land");
@@ -2138,6 +2229,14 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             }
         });
 
+        currentTurnLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        currentTurnLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        currentTurnLabel.setText("Current Turn:");
+
+        playerTurn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        playerTurn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        playerTurn.setText("Player 1");
+
         javax.swing.GroupLayout actionPanelLayout = new javax.swing.GroupLayout(actionPanel);
         actionPanel.setLayout(actionPanelLayout);
         actionPanelLayout.setHorizontalGroup(
@@ -2149,7 +2248,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                     .addComponent(diceButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(editorButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buyLandButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(endTurnButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(endTurnButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(currentTurnLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(playerTurn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         actionPanelLayout.setVerticalGroup(
@@ -2163,7 +2264,11 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addComponent(buyLandButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(endTurnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(currentTurnLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(playerTurn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
                 .addComponent(editorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -2193,11 +2298,11 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(player4Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(player3Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(player2Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(player1Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(player3Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(player4Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(gameBoardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2261,6 +2366,10 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
+    private javax.swing.JLabel balance1;
+    private javax.swing.JLabel balance2;
+    private javax.swing.JLabel balance3;
+    private javax.swing.JLabel balance4;
     private javax.swing.JLabel balanceLabel1;
     private javax.swing.JLabel balanceLabel2;
     private javax.swing.JLabel balanceLabel3;
@@ -2270,6 +2379,7 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private javax.swing.JPanel colorPanel2;
     private javax.swing.JPanel colorPanel3;
     private javax.swing.JPanel colorPanel4;
+    private javax.swing.JLabel currentTurnLabel;
     private javax.swing.JButton diceButton;
     private javax.swing.JLabel diceNum;
     private javax.swing.JButton editorButton;
@@ -2351,6 +2461,11 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private javax.swing.JPanel player3Panel;
     private javax.swing.JLabel player4Label;
     private javax.swing.JPanel player4Panel;
+    private javax.swing.JLabel playerTurn;
+    private javax.swing.JLabel position1;
+    private javax.swing.JLabel position2;
+    private javax.swing.JLabel position3;
+    private javax.swing.JLabel position4;
     private javax.swing.JLabel positionLabel1;
     private javax.swing.JLabel positionLabel2;
     private javax.swing.JLabel positionLabel3;
@@ -2443,6 +2558,10 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private javax.swing.JLabel slotNum7;
     private javax.swing.JLabel slotNum8;
     private javax.swing.JLabel slotNum9;
+    private javax.swing.JLabel status1;
+    private javax.swing.JLabel status2;
+    private javax.swing.JLabel status3;
+    private javax.swing.JLabel status4;
     private javax.swing.JLabel statusLabel1;
     private javax.swing.JLabel statusLabel2;
     private javax.swing.JLabel statusLabel3;
