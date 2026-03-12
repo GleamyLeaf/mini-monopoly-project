@@ -2323,6 +2323,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
 
     private void editorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorButtonActionPerformed
         // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(() -> {
+            new GameEditorGUI().setVisible(true);
+        });
     }//GEN-LAST:event_editorButtonActionPerformed
 
     private void buyLandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyLandButtonActionPerformed
