@@ -8,114 +8,154 @@ package mini_monopoly;
  *
  * @author Kenne
  */
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import java.awt.Color;
 
 public class MiniMonopolyGUI extends javax.swing.JFrame {
+
+    private GameState gameState;
+    private GameController controller;
+
+    private final javax.swing.JLabel[] landNameLabels;
+    private final javax.swing.JLabel[] landPriceLabels;
+    private javax.swing.JPanel[] ownerColorPanels;
+    private javax.swing.JPanel[] slotPanels;
+    private javax.swing.JLabel[] slotNumLabels;
+
+    private static final Color[] PLAYER_COLORS = {
+        new Color(255, 102, 102),
+        new Color(153, 255, 153),
+        new Color(102, 153, 255),
+        new Color(255, 255, 153)
+    };
 
     /**
      * Creates new form MiniMonopolyGUI
      */
     public MiniMonopolyGUI() {
         initComponents();
-        
+
         landNameLabels = new javax.swing.JLabel[] {
-            landName1,
-            landName2,
-            landName3,
-            landName7,
-            landName8,
-            landName9,
-            landName10,
-            landName11,
-            landName12,
-            landName13,
-            landName14,
-            landName19,
-            landName20,
-            landName21,
-            landName22,
-            landName23,
-            landName26,
-            landName35,
-            landName38,
-            landName39,
-            landName40,
-            landName41,
+            landName1, landName2, landName3,
+            landName7, landName8, landName9, landName10, landName11,
+            landName12, landName13, landName14,
+            landName19, landName20, landName21, landName22, landName23,
+            landName26, landName35,
+            landName38, landName39, landName40, landName41,
         };
 
         landPriceLabels = new javax.swing.JLabel[] {
-            landPrice1,
-            landPrice2,
-            landPrice3,
-            landPrice7,
-            landPrice8,
-            landPrice9,
-            landPrice10,
-            landPrice11,
-            landPrice12,
-            landPrice13,
-            landPrice14,
-            landPrice19,
-            landPrice20,
-            landPrice21,
-            landPrice22,
-            landPrice23,
-            landPrice26,
-            landPrice35,
-            landPrice38,
-            landPrice39,
-            landPrice40,
-            landPrice41,
+            landPrice1, landPrice2, landPrice3,
+            landPrice7, landPrice8, landPrice9, landPrice10, landPrice11,
+            landPrice12, landPrice13, landPrice14,
+            landPrice19, landPrice20, landPrice21, landPrice22, landPrice23,
+            landPrice26, landPrice35,
+            landPrice38, landPrice39, landPrice40, landPrice41,
         };
-        
-        replaceLandInfo();
+
+        ownerColorPanels = new javax.swing.JPanel[] {
+            ownerColor1, ownerColor2, ownerColor3,
+            ownerColor7, ownerColor8, ownerColor9, ownerColor10, ownerColor11,
+            ownerColor12, ownerColor13, ownerColor14,
+            ownerColor19, ownerColor20, ownerColor21, ownerColor22, ownerColor23,
+            ownerColor26, ownerColor35,
+            ownerColor38, ownerColor39, ownerColor40, ownerColor41,
+        };
+
+        slotPanels = new javax.swing.JPanel[] {
+            slot0, slot1, slot2, slot3, slot4, slot5, slot6, slot7,
+            slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15,
+            slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23,
+            slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31,
+            slot32, slot33, slot34, slot35, slot36, slot37, slot38, slot39,
+            slot40, slot41, slot42, slot43
+        };
+
+        slotNumLabels = new javax.swing.JLabel[] {
+            slotNum0, slotNum1, slotNum2, slotNum3, slotNum4, slotNum5,
+            slotNum6, slotNum7, slotNum8, slotNum9, slotNum10, slotNum11,
+            slotNum12, slotNum13, slotNum14, slotNum15, slotNum16, slotNum17,
+            slotNum18, slotNum19, slotNum20, slotNum21, slotNum22, slotNum23,
+            slotNum24, slotNum25, slotNum26, slotNum27, slotNum28, slotNum29,
+            slotNum30, slotNum31, slotNum32, slotNum33, slotNum34, slotNum35,
+            slotNum36, slotNum37, slotNum38, slotNum39, slotNum40, slotNum41,
+            slotNum42, slotNum43
+        };
+
+        gameState = new GameState();
+        controller = new GameController(gameState);
+        refreshUI();
     }
-    
-    private void replaceLandInfo() {
-        JSONArray lands = loadLandsFromJson();
-        if (lands == null || lands.size() < 3) {
-            System.err.println("Not enough lands in JSON or failed to load");
-            return;
+
+    public void refreshUI() {
+        Land[] lands = gameState.getLands();
+        for (int i = 0; i < lands.length && i < landNameLabels.length; i++) {
+            landNameLabels[i].setText(lands[i].getName());
+            landPriceLabels[i].setText("$" + lands[i].getPrice());
         }
 
-        for (int i = 0; i <= 21; i++) { // change number when needed
-            try {
-                JSONObject land = (JSONObject) lands.get(i);
-
-                String name = (String) land.get("name");
-                Number price = (Number) land.get("price");
-
-                landNameLabels[i].setText(name);
-                landPriceLabels[i].setText("$" + price);
-                
-            } catch (Exception e) {
-                landNameLabels[i].setText("Error");
-                landPriceLabels[i].setText("?");
-                e.printStackTrace();
+        for (int i = 0; i < lands.length && i < ownerColorPanels.length; i++) {
+            int owner = lands[i].getOwnerIndex();
+            if (owner >= 0) {
+                ownerColorPanels[i].setBackground(PLAYER_COLORS[owner]);
+            } else {
+                ownerColorPanels[i].setBackground(Color.LIGHT_GRAY);
             }
         }
+
+        javax.swing.JLabel[] balLabels = {balance1, balance2, balance3, balance4};
+        javax.swing.JLabel[] posLabels = {position1, position2, position3, position4};
+        javax.swing.JLabel[] statLabels = {status1, status2, status3, status4};
+
+        for (int i = 0; i < GameState.NUM_PLAYERS; i++) {
+            Player p = gameState.getPlayer(i);
+            balLabels[i].setText("$" + p.getBalance());
+            posLabels[i].setText(String.valueOf(p.getPosition()));
+            statLabels[i].setText(p.isActive() ? "Active" : "Bankrupt");
+        }
+
+        playerTurn.setText("Player " + (gameState.getCurrentTurn() + 1));
+
+        if (controller.getLastDiceRoll() > 0) {
+            diceNum.setText(String.valueOf(controller.getLastDiceRoll()));
+        } else {
+            diceNum.setText("-");
+        }
+
+        for (int i = 0; i < slotNumLabels.length; i++) {
+            slotNumLabels[i].setText(String.valueOf(i));
+            slotPanels[i].setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        }
+        for (int p = 0; p < GameState.NUM_PLAYERS; p++) {
+            Player player = gameState.getPlayer(p);
+            if (player.isActive()) {
+                int pos = player.getPosition();
+                String txt = slotNumLabels[pos].getText();
+                if (!txt.contains("P")) {
+                    slotNumLabels[pos].setText("<html>" + pos + "<br><font color='" + colorToHex(PLAYER_COLORS[p]) + "'>P" + (p + 1) + "</font></html>");
+                } else {
+                    String old = slotNumLabels[pos].getText();
+                    old = old.replace("</html>", " <font color='" + colorToHex(PLAYER_COLORS[p]) + "'>P" + (p + 1) + "</font></html>");
+                    slotNumLabels[pos].setText(old);
+                }
+                slotPanels[pos].setBorder(javax.swing.BorderFactory.createLineBorder(PLAYER_COLORS[p], 3));
+            }
+        }
+
+        diceButton.setEnabled(!controller.hasRolled());
+        buyLandButton.setEnabled(controller.canBuyLand());
+        endTurnButton.setEnabled(controller.hasRolled());
     }
 
-    private JSONArray loadLandsFromJson() {
-        try {
-            InputStreamReader reader = new InputStreamReader(
-                getClass().getResourceAsStream("/resources/board.json"),
-                StandardCharsets.UTF_8
-            );
+    private String colorToHex(Color c) {
+        return String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
+    }
 
-            JSONParser parser = new JSONParser();
-            JSONArray array = (JSONArray) parser.parse(reader);
-            reader.close();
-            return array;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Failed to load /resources/board.json");
-            return null;
-        }
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public GameController getController() {
+        return controller;
     }
 
     /**
@@ -2314,22 +2354,24 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void diceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diceButtonActionPerformed
-        // TODO add your handling code here:
+        controller.rollDice();
+        refreshUI();
     }//GEN-LAST:event_diceButtonActionPerformed
 
     private void endTurnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endTurnButtonActionPerformed
-        // TODO add your handling code here:
+        controller.endTurn();
+        refreshUI();
     }//GEN-LAST:event_endTurnButtonActionPerformed
 
     private void editorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorButtonActionPerformed
-        // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(() -> {
-            new GameEditorGUI().setVisible(true);
+            new GameEditorGUI(gameState, controller, this).setVisible(true);
         });
     }//GEN-LAST:event_editorButtonActionPerformed
 
     private void buyLandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyLandButtonActionPerformed
-        // TODO add your handling code here:
+        controller.buyLand();
+        refreshUI();
     }//GEN-LAST:event_buyLandButtonActionPerformed
 
     /**
@@ -2570,7 +2612,4 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private javax.swing.JLabel statusLabel3;
     private javax.swing.JLabel statusLabel4;
     // End of variables declaration//GEN-END:variables
-
-    private final javax.swing.JLabel[] landNameLabels;
-    private final javax.swing.JLabel[] landPriceLabels;
 }

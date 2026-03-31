@@ -10,12 +10,84 @@ package mini_monopoly;
  */
 public class GameEditorGUI extends javax.swing.JFrame {
 
+    private GameState gameState;
+    private GameController controller;
+    private MiniMonopolyGUI mainGUI;
+
     /**
      * Creates new form GameEditorGUI
      */
     public GameEditorGUI() {
         initComponents();
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    public GameEditorGUI(GameState gameState, GameController controller, MiniMonopolyGUI mainGUI) {
+        initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        this.gameState = gameState;
+        this.controller = controller;
+        this.mainGUI = mainGUI;
+
+        loadFromState();
+
+        saveButton.addActionListener(e -> saveToState());
+    }
+
+    private void loadFromState() {
+        javax.swing.JTextField[] balFields = {balanceField1, balanceField2, balanceField3, balanceField4};
+        javax.swing.JTextField[] posFields = {positionField1, positionField2, positionField3, positionField4};
+        javax.swing.JRadioButton[] activeButtons = {player1ActiveButton, player2ActiveButton, player3ActiveButton, player4ActiveButton};
+        javax.swing.JRadioButton[] bankruptButtons = {player1BankruptButton, player2BankruptButton, player3BankruptButton, player4BankruptButton};
+        javax.swing.JRadioButton[] turnButtons = {player1Turn, player2Turn, player3Turn, player4Turn};
+
+        for (int i = 0; i < GameState.NUM_PLAYERS; i++) {
+            Player p = gameState.getPlayer(i);
+            balFields[i].setText(String.valueOf(p.getBalance()));
+            posFields[i].setText(String.valueOf(p.getPosition()));
+            if (p.isActive()) {
+                activeButtons[i].setSelected(true);
+            } else {
+                bankruptButtons[i].setSelected(true);
+            }
+        }
+        turnButtons[gameState.getCurrentTurn()].setSelected(true);
+    }
+
+    private void saveToState() {
+        javax.swing.JTextField[] balFields = {balanceField1, balanceField2, balanceField3, balanceField4};
+        javax.swing.JTextField[] posFields = {positionField1, positionField2, positionField3, positionField4};
+        javax.swing.JRadioButton[] activeButtons = {player1ActiveButton, player2ActiveButton, player3ActiveButton, player4ActiveButton};
+        javax.swing.JRadioButton[] turnButtons = {player1Turn, player2Turn, player3Turn, player4Turn};
+
+        for (int i = 0; i < GameState.NUM_PLAYERS; i++) {
+            Player p = gameState.getPlayer(i);
+            try {
+                p.setBalance(Integer.parseInt(balFields[i].getText().trim()));
+            } catch (NumberFormatException ex) {
+                // keep current
+            }
+            try {
+                int pos = Integer.parseInt(posFields[i].getText().trim());
+                if (pos >= 0 && pos < GameState.BOARD_SIZE) {
+                    p.setPosition(pos);
+                }
+            } catch (NumberFormatException ex) {
+                // keep current
+            }
+            p.setActive(activeButtons[i].isSelected());
+        }
+
+        for (int i = 0; i < GameState.NUM_PLAYERS; i++) {
+            if (turnButtons[i].isSelected()) {
+                gameState.setCurrentTurn(i);
+                break;
+            }
+        }
+
+        controller.setRolled(false);
+        mainGUI.refreshUI();
+        this.dispose();
     }
 
     /**
