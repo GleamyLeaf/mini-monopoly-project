@@ -137,7 +137,7 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
         }
 
         for (int i = 0; i < slotNumLabels.length; i++) {
-            String sqName = controller.getSquareName(i);
+            String sqName = gameState.getSquareName(i);
             if (!sqName.isEmpty()) {
                 slotNumLabels[i].setText("<html><b>" + i + "</b><br>" + sqName + "</html>");
             } else {
@@ -161,9 +161,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             }
         }
 
-        diceButton.setEnabled(!controller.hasRolled() && !controller.isGameOver());
+        diceButton.setEnabled(!controller.hasRolled() && !gameState.isGameOver());
         buyLandButton.setEnabled(controller.canBuyLand());
-        endTurnButton.setEnabled(controller.hasRolled() && !controller.isGameOver());
+        endTurnButton.setEnabled(controller.hasRolled() && !gameState.isGameOver());
     }
 
     private void showMessage(String msg) {
@@ -173,7 +173,7 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     }
 
     private void showSellDialog() {
-        if (controller.isGameOver()) return;
+        if (gameState.isGameOver()) return;
         java.util.List<Integer> owned = controller.getOwnedProperties(gameState.getCurrentTurn());
         if (owned.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "You don't own any properties.");
@@ -2413,9 +2413,9 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
         controller.rollDice();
         refreshUI();
         showMessage(controller.getLastMessage());
-        if (controller.isGameOver() && controller.getWinnerIndex() >= 0) {
+        if (gameState.isGameOver() && gameState.getWinnerIndex() >= 0) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                "Player " + (controller.getWinnerIndex() + 1) + " wins!",
+                "Player " + (gameState.getWinnerIndex() + 1) + " wins!",
                 "Game Over", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_diceButtonActionPerformed
