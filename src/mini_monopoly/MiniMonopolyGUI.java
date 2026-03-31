@@ -83,6 +83,15 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
 
         gameState = new GameState();
         controller = new GameController(gameState);
+
+        javax.swing.JMenuBar menuBar = new javax.swing.JMenuBar();
+        javax.swing.JMenu gameMenu = new javax.swing.JMenu("Game");
+        javax.swing.JMenuItem sellItem = new javax.swing.JMenuItem("Sell Property");
+        sellItem.addActionListener(e -> showSellDialog());
+        gameMenu.add(sellItem);
+        menuBar.add(gameMenu);
+        setJMenuBar(menuBar);
+
         refreshUI();
     }
 
@@ -110,7 +119,13 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             Player p = gameState.getPlayer(i);
             balLabels[i].setText("$" + p.getBalance());
             posLabels[i].setText(String.valueOf(p.getPosition()));
-            statLabels[i].setText(p.isActive() ? "Active" : "Bankrupt");
+            if (!p.isActive()) {
+                statLabels[i].setText("Bankrupt");
+            } else if (p.isInJail()) {
+                statLabels[i].setText("In Jail");
+            } else {
+                statLabels[i].setText("Active");
+            }
         }
 
         playerTurn.setText("Player " + (gameState.getCurrentTurn() + 1));
@@ -122,7 +137,12 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
         }
 
         for (int i = 0; i < slotNumLabels.length; i++) {
-            slotNumLabels[i].setText(String.valueOf(i));
+            String sqName = controller.getSquareName(i);
+            if (!sqName.isEmpty()) {
+                slotNumLabels[i].setText("<html><b>" + i + "</b><br>" + sqName + "</html>");
+            } else {
+                slotNumLabels[i].setText(String.valueOf(i));
+            }
             slotPanels[i].setBorder(javax.swing.BorderFactory.createEtchedBorder());
         }
         for (int p = 0; p < GameState.NUM_PLAYERS; p++) {
@@ -130,20 +150,56 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             if (player.isActive()) {
                 int pos = player.getPosition();
                 String txt = slotNumLabels[pos].getText();
-                if (!txt.contains("P")) {
-                    slotNumLabels[pos].setText("<html>" + pos + "<br><font color='" + colorToHex(PLAYER_COLORS[p]) + "'>P" + (p + 1) + "</font></html>");
+                String marker = "<font color='" + colorToHex(PLAYER_COLORS[p]) + "'><b>P" + (p + 1) + "</b></font>";
+                if (txt.contains("</html>")) {
+                    txt = txt.replace("</html>", " " + marker + "</html>");
                 } else {
-                    String old = slotNumLabels[pos].getText();
-                    old = old.replace("</html>", " <font color='" + colorToHex(PLAYER_COLORS[p]) + "'>P" + (p + 1) + "</font></html>");
-                    slotNumLabels[pos].setText(old);
+                    txt = "<html>" + txt + " " + marker + "</html>";
                 }
+                slotNumLabels[pos].setText(txt);
                 slotPanels[pos].setBorder(javax.swing.BorderFactory.createLineBorder(PLAYER_COLORS[p], 3));
             }
         }
 
-        diceButton.setEnabled(!controller.hasRolled());
+        diceButton.setEnabled(!controller.hasRolled() && !controller.isGameOver());
         buyLandButton.setEnabled(controller.canBuyLand());
-        endTurnButton.setEnabled(controller.hasRolled());
+        endTurnButton.setEnabled(controller.hasRolled() && !controller.isGameOver());
+    }
+
+    private void showMessage(String msg) {
+        if (msg != null && !msg.trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, msg);
+        }
+    }
+
+    private void showSellDialog() {
+        if (controller.isGameOver()) return;
+        java.util.List<Integer> owned = controller.getOwnedProperties(gameState.getCurrentTurn());
+        if (owned.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "You don't own any properties.");
+            return;
+        }
+
+        String[] options = new String[owned.size()];
+        for (int i = 0; i < owned.size(); i++) {
+            Land land = gameState.getLand(owned.get(i));
+            options[i] = land.getName() + " (sell for $" + (land.getPrice() / 2) + ")";
+        }
+
+        String choice = (String) javax.swing.JOptionPane.showInputDialog(
+            this, "Select property to sell:", "Sell Property",
+            javax.swing.JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+        if (choice != null) {
+            for (int i = 0; i < options.length; i++) {
+                if (options[i].equals(choice)) {
+                    controller.sellProperty(owned.get(i));
+                    refreshUI();
+                    showMessage(controller.getLastMessage());
+                    break;
+                }
+            }
+        }
     }
 
     private String colorToHex(Color c) {
@@ -2356,6 +2412,12 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private void diceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diceButtonActionPerformed
         controller.rollDice();
         refreshUI();
+        showMessage(controller.getLastMessage());
+        if (controller.isGameOver() && controller.getWinnerIndex() >= 0) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Player " + (controller.getWinnerIndex() + 1) + " wins!",
+                "Game Over", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_diceButtonActionPerformed
 
     private void endTurnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endTurnButtonActionPerformed
@@ -2372,6 +2434,7 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private void buyLandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyLandButtonActionPerformed
         controller.buyLand();
         refreshUI();
+        showMessage(controller.getLastMessage());
     }//GEN-LAST:event_buyLandButtonActionPerformed
 
     /**
