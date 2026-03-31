@@ -109,12 +109,16 @@ public class GameModel {
     public Player getPlayer(int i) { return players[i]; }
     public Land[] getLands() { return lands; }
     public Land getLand(int i) { return lands[i]; }
+    
     public int getCurrentTurn() { return currentTurn; }
     public void setCurrentTurn(int t) { currentTurn = t; }
+    
     public boolean isGameOver() { return gameOver; }
     public void setGameOver(boolean v) { gameOver = v; }
+    
     public int getWinnerIndex() { return winnerIndex; }
     public void setWinnerIndex(int i) { winnerIndex = i; }
+    
     public int getSquareType(int slot) { return squareTypes[slot]; }
     public int getLandIndexForSlot(int slot) { return slotToLandMap[slot]; }
     public boolean isPropertySlot(int slot) { return slotToLandMap[slot] != -1; }

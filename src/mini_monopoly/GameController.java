@@ -215,8 +215,10 @@ public class GameController {
     }
 
     public GameModel getModel() { return model; }
+    
     public int getLastDiceRoll() { return lastDiceRoll; }
     public boolean hasRolled() { return rolled; }
     public void setRolled(boolean v) { rolled = v; }
+    
     public String getLastMessage() { return lastMessage; }
 }
