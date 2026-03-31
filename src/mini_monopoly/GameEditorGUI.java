@@ -60,32 +60,34 @@ public class GameEditorGUI extends javax.swing.JFrame {
         javax.swing.JRadioButton[] activeButtons = {player1ActiveButton, player2ActiveButton, player3ActiveButton, player4ActiveButton};
         javax.swing.JRadioButton[] turnButtons = {player1Turn, player2Turn, player3Turn, player4Turn};
 
+        int[] balances = new int[GameState.NUM_PLAYERS];
+        int[] positions = new int[GameState.NUM_PLAYERS];
+        boolean[] activeFlags = new boolean[GameState.NUM_PLAYERS];
+        int turn = 0;
+
         for (int i = 0; i < GameState.NUM_PLAYERS; i++) {
             Player p = gameState.getPlayer(i);
             try {
-                p.setBalance(Integer.parseInt(balFields[i].getText().trim()));
+                balances[i] = Integer.parseInt(balFields[i].getText().trim());
             } catch (NumberFormatException ex) {
-                // keep current
+                balances[i] = p.getBalance();
             }
             try {
-                int pos = Integer.parseInt(posFields[i].getText().trim());
-                if (pos >= 0 && pos < GameState.BOARD_SIZE) {
-                    p.setPosition(pos);
-                }
+                positions[i] = Integer.parseInt(posFields[i].getText().trim());
             } catch (NumberFormatException ex) {
-                // keep current
+                positions[i] = p.getPosition();
             }
-            p.setActive(activeButtons[i].isSelected());
+            activeFlags[i] = activeButtons[i].isSelected();
         }
 
         for (int i = 0; i < GameState.NUM_PLAYERS; i++) {
             if (turnButtons[i].isSelected()) {
-                gameState.setCurrentTurn(i);
+                turn = i;
                 break;
             }
         }
 
-        controller.setRolled(false);
+        controller.applyEditorChanges(balances, positions, activeFlags, turn);
         mainGUI.refreshUI();
         this.dispose();
     }
