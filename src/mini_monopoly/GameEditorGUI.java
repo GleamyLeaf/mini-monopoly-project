@@ -10,9 +10,9 @@ package mini_monopoly;
  */
 public class GameEditorGUI extends javax.swing.JFrame {
 
-    private GameState gameState;
+    private GameModel model;
     private GameController controller;
-    private MiniMonopolyGUI mainGUI;
+    private GameView gameView;
 
     /**
      * Creates new form GameEditorGUI
@@ -22,73 +22,61 @@ public class GameEditorGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
-    public GameEditorGUI(GameState gameState, GameController controller, MiniMonopolyGUI mainGUI) {
+    public GameEditorGUI(GameModel model, GameController controller, GameView gameView) {
         initComponents();
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
-        this.gameState = gameState;
+        this.model = model;
         this.controller = controller;
-        this.mainGUI = mainGUI;
+        this.gameView = gameView;
 
-        loadFromState();
+        loadFromModel();
 
-        saveButton.addActionListener(e -> saveToState());
+        saveButton.addActionListener(e -> saveToModel());
     }
 
-    private void loadFromState() {
+    private void loadFromModel() {
         javax.swing.JTextField[] balFields = {balanceField1, balanceField2, balanceField3, balanceField4};
         javax.swing.JTextField[] posFields = {positionField1, positionField2, positionField3, positionField4};
         javax.swing.JRadioButton[] activeButtons = {player1ActiveButton, player2ActiveButton, player3ActiveButton, player4ActiveButton};
         javax.swing.JRadioButton[] bankruptButtons = {player1BankruptButton, player2BankruptButton, player3BankruptButton, player4BankruptButton};
         javax.swing.JRadioButton[] turnButtons = {player1Turn, player2Turn, player3Turn, player4Turn};
 
-        for (int i = 0; i < GameState.NUM_PLAYERS; i++) {
-            Player p = gameState.getPlayer(i);
+        for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {
+            Player p = model.getPlayer(i);
             balFields[i].setText(String.valueOf(p.getBalance()));
             posFields[i].setText(String.valueOf(p.getPosition()));
-            if (p.isActive()) {
-                activeButtons[i].setSelected(true);
-            } else {
-                bankruptButtons[i].setSelected(true);
-            }
+            if (p.isActive()) activeButtons[i].setSelected(true);
+            else bankruptButtons[i].setSelected(true);
         }
-        turnButtons[gameState.getCurrentTurn()].setSelected(true);
+        turnButtons[model.getCurrentTurn()].setSelected(true);
     }
 
-    private void saveToState() {
+    private void saveToModel() {
         javax.swing.JTextField[] balFields = {balanceField1, balanceField2, balanceField3, balanceField4};
         javax.swing.JTextField[] posFields = {positionField1, positionField2, positionField3, positionField4};
         javax.swing.JRadioButton[] activeButtons = {player1ActiveButton, player2ActiveButton, player3ActiveButton, player4ActiveButton};
         javax.swing.JRadioButton[] turnButtons = {player1Turn, player2Turn, player3Turn, player4Turn};
 
-        int[] balances = new int[GameState.NUM_PLAYERS];
-        int[] positions = new int[GameState.NUM_PLAYERS];
-        boolean[] activeFlags = new boolean[GameState.NUM_PLAYERS];
+        int[] balances = new int[GameModel.NUM_PLAYERS];
+        int[] positions = new int[GameModel.NUM_PLAYERS];
+        boolean[] activeFlags = new boolean[GameModel.NUM_PLAYERS];
         int turn = 0;
 
-        for (int i = 0; i < GameState.NUM_PLAYERS; i++) {
-            Player p = gameState.getPlayer(i);
-            try {
-                balances[i] = Integer.parseInt(balFields[i].getText().trim());
-            } catch (NumberFormatException ex) {
-                balances[i] = p.getBalance();
-            }
-            try {
-                positions[i] = Integer.parseInt(posFields[i].getText().trim());
-            } catch (NumberFormatException ex) {
-                positions[i] = p.getPosition();
-            }
+        for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {
+            Player p = model.getPlayer(i);
+            try { balances[i] = Integer.parseInt(balFields[i].getText().trim()); }
+            catch (NumberFormatException ex) { balances[i] = p.getBalance(); }
+            try { positions[i] = Integer.parseInt(posFields[i].getText().trim()); }
+            catch (NumberFormatException ex) { positions[i] = p.getPosition(); }
             activeFlags[i] = activeButtons[i].isSelected();
         }
 
-        for (int i = 0; i < GameState.NUM_PLAYERS; i++) {
-            if (turnButtons[i].isSelected()) {
-                turn = i;
-                break;
-            }
+        for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {
+            if (turnButtons[i].isSelected()) { turn = i; break; }
         }
 
         controller.applyEditorChanges(balances, positions, activeFlags, turn);
-        mainGUI.refreshUI();
+        gameView.refresh();
         this.dispose();
     }
 

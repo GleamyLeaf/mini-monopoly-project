@@ -6,15 +6,13 @@ import org.json.simple.parser.JSONParser;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-public class GameState {
+public class GameModel {
 
     public static final int BOARD_SIZE = 44;
     public static final int NUM_PLAYERS = 4;
     public static final int STARTING_BALANCE = 2000;
-
     public static final int GO_SALARY = 1500;
-    public static final int INCOME_TAX = 500;
-    public static final int LUXURY_TAX = 750;
+    public static final int TAX_AMOUNT = 500;
     public static final int JAIL_BAIL = 200;
     public static final int JAIL_SLOT = 15;
 
@@ -39,7 +37,7 @@ public class GameState {
     private boolean gameOver;
     private int winnerIndex;
 
-    public GameState() {
+    public GameModel() {
         players = new Player[NUM_PLAYERS];
         for (int i = 0; i < NUM_PLAYERS; i++) {
             players[i] = new Player(STARTING_BALANCE);
@@ -63,11 +61,7 @@ public class GameState {
     private void initSquareTypes() {
         squareTypes = new int[BOARD_SIZE];
         for (int i = 0; i < BOARD_SIZE; i++) {
-            if (isPropertySlot(i)) {
-                squareTypes[i] = SQ_PROPERTY;
-            } else {
-                squareTypes[i] = SQ_FREE_PARKING;
-            }
+            squareTypes[i] = isPropertySlot(i) ? SQ_PROPERTY : SQ_FREE_PARKING;
         }
         squareTypes[0] = SQ_GO;
         squareTypes[4] = SQ_TAX;
@@ -101,9 +95,10 @@ public class GameState {
             lands = new Land[array.size()];
             for (int i = 0; i < array.size(); i++) {
                 JSONObject obj = (JSONObject) array.get(i);
-                String name = (String) obj.get("name");
-                int price = ((Number) obj.get("price")).intValue();
-                lands[i] = new Land(name, price);
+                lands[i] = new Land(
+                    (String) obj.get("name"),
+                    ((Number) obj.get("price")).intValue()
+                );
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,63 +106,28 @@ public class GameState {
         }
     }
 
-    public Player getPlayer(int index) {
-        return players[index];
-    }
-
-    public Land[] getLands() {
-        return lands;
-    }
-
-    public Land getLand(int index) {
-        return lands[index];
-    }
-
-    public int getCurrentTurn() {
-        return currentTurn;
-    }
-
-    public void setCurrentTurn(int turn) {
-        this.currentTurn = turn;
-    }
-
-    public int getLandIndexForSlot(int slot) {
-        return slotToLandMap[slot];
-    }
-
-    public boolean isPropertySlot(int slot) {
-        return slotToLandMap[slot] != -1;
-    }
-
-    public int getSquareType(int slot) {
-        return squareTypes[slot];
-    }
+    public Player getPlayer(int i) { return players[i]; }
+    public Land[] getLands() { return lands; }
+    public Land getLand(int i) { return lands[i]; }
+    public int getCurrentTurn() { return currentTurn; }
+    public void setCurrentTurn(int t) { currentTurn = t; }
+    public boolean isGameOver() { return gameOver; }
+    public void setGameOver(boolean v) { gameOver = v; }
+    public int getWinnerIndex() { return winnerIndex; }
+    public void setWinnerIndex(int i) { winnerIndex = i; }
+    public int getSquareType(int slot) { return squareTypes[slot]; }
+    public int getLandIndexForSlot(int slot) { return slotToLandMap[slot]; }
+    public boolean isPropertySlot(int slot) { return slotToLandMap[slot] != -1; }
 
     public String getSquareName(int slot) {
         switch (squareTypes[slot]) {
             case SQ_GO: return "GO";
-            case SQ_TAX: return (slot == 37) ? "Luxury Tax" : "Income Tax";
+            case SQ_TAX: return "Tax";
             case SQ_CHANCE: return "Chance";
             case SQ_JAIL: return "Jail";
             case SQ_GO_TO_JAIL: return "Go To Jail";
             case SQ_FREE_PARKING: return "Free Parking";
             default: return "";
         }
-    }
-
-    public boolean isGameOver() {
-        return gameOver;
-    }
-
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
-    }
-
-    public int getWinnerIndex() {
-        return winnerIndex;
-    }
-
-    public void setWinnerIndex(int winnerIndex) {
-        this.winnerIndex = winnerIndex;
     }
 }

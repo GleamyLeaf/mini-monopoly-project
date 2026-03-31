@@ -8,25 +8,9 @@ package mini_monopoly;
  *
  * @author Kenne
  */
-import java.awt.Color;
-
 public class MiniMonopolyGUI extends javax.swing.JFrame {
 
-    private GameState gameState;
-    private GameController controller;
-
-    private final javax.swing.JLabel[] landNameLabels;
-    private final javax.swing.JLabel[] landPriceLabels;
-    private javax.swing.JPanel[] ownerColorPanels;
-    private javax.swing.JPanel[] slotPanels;
-    private javax.swing.JLabel[] slotNumLabels;
-
-    private static final Color[] PLAYER_COLORS = {
-        new Color(255, 102, 102),
-        new Color(153, 255, 153),
-        new Color(102, 153, 255),
-        new Color(255, 255, 153)
-    };
+    private GameView view;
 
     /**
      * Creates new form MiniMonopolyGUI
@@ -34,184 +18,53 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     public MiniMonopolyGUI() {
         initComponents();
 
-        landNameLabels = new javax.swing.JLabel[] {
-            landName1, landName2, landName3,
-            landName7, landName8, landName9, landName10, landName11,
-            landName12, landName13, landName14,
-            landName19, landName20, landName21, landName22, landName23,
-            landName26, landName35,
-            landName38, landName39, landName40, landName41,
-        };
+        GameModel model = new GameModel();
+        GameController controller = new GameController(model);
 
-        landPriceLabels = new javax.swing.JLabel[] {
-            landPrice1, landPrice2, landPrice3,
-            landPrice7, landPrice8, landPrice9, landPrice10, landPrice11,
-            landPrice12, landPrice13, landPrice14,
-            landPrice19, landPrice20, landPrice21, landPrice22, landPrice23,
-            landPrice26, landPrice35,
-            landPrice38, landPrice39, landPrice40, landPrice41,
-        };
-
-        ownerColorPanels = new javax.swing.JPanel[] {
-            ownerColor1, ownerColor2, ownerColor3,
-            ownerColor7, ownerColor8, ownerColor9, ownerColor10, ownerColor11,
-            ownerColor12, ownerColor13, ownerColor14,
-            ownerColor19, ownerColor20, ownerColor21, ownerColor22, ownerColor23,
-            ownerColor26, ownerColor35,
-            ownerColor38, ownerColor39, ownerColor40, ownerColor41,
-        };
-
-        slotPanels = new javax.swing.JPanel[] {
-            slot0, slot1, slot2, slot3, slot4, slot5, slot6, slot7,
-            slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15,
-            slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23,
-            slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31,
-            slot32, slot33, slot34, slot35, slot36, slot37, slot38, slot39,
-            slot40, slot41, slot42, slot43
-        };
-
-        slotNumLabels = new javax.swing.JLabel[] {
-            slotNum0, slotNum1, slotNum2, slotNum3, slotNum4, slotNum5,
-            slotNum6, slotNum7, slotNum8, slotNum9, slotNum10, slotNum11,
-            slotNum12, slotNum13, slotNum14, slotNum15, slotNum16, slotNum17,
-            slotNum18, slotNum19, slotNum20, slotNum21, slotNum22, slotNum23,
-            slotNum24, slotNum25, slotNum26, slotNum27, slotNum28, slotNum29,
-            slotNum30, slotNum31, slotNum32, slotNum33, slotNum34, slotNum35,
-            slotNum36, slotNum37, slotNum38, slotNum39, slotNum40, slotNum41,
-            slotNum42, slotNum43
-        };
-
-        gameState = new GameState();
-        controller = new GameController(gameState);
-
-        javax.swing.JMenuBar menuBar = new javax.swing.JMenuBar();
-        javax.swing.JMenu gameMenu = new javax.swing.JMenu("Game");
-        javax.swing.JMenuItem sellItem = new javax.swing.JMenuItem("Sell Property");
-        sellItem.addActionListener(e -> showSellDialog());
-        gameMenu.add(sellItem);
-        menuBar.add(gameMenu);
-        setJMenuBar(menuBar);
-
-        refreshUI();
-    }
-
-    public void refreshUI() {
-        Land[] lands = gameState.getLands();
-        for (int i = 0; i < lands.length && i < landNameLabels.length; i++) {
-            landNameLabels[i].setText(lands[i].getName());
-            landPriceLabels[i].setText("$" + lands[i].getPrice());
-        }
-
-        for (int i = 0; i < lands.length && i < ownerColorPanels.length; i++) {
-            int owner = lands[i].getOwnerIndex();
-            if (owner >= 0) {
-                ownerColorPanels[i].setBackground(PLAYER_COLORS[owner]);
-            } else {
-                ownerColorPanels[i].setBackground(Color.LIGHT_GRAY);
-            }
-        }
-
-        javax.swing.JLabel[] balLabels = {balance1, balance2, balance3, balance4};
-        javax.swing.JLabel[] posLabels = {position1, position2, position3, position4};
-        javax.swing.JLabel[] statLabels = {status1, status2, status3, status4};
-
-        for (int i = 0; i < GameState.NUM_PLAYERS; i++) {
-            Player p = gameState.getPlayer(i);
-            balLabels[i].setText("$" + p.getBalance());
-            posLabels[i].setText(String.valueOf(p.getPosition()));
-            if (!p.isActive()) {
-                statLabels[i].setText("Bankrupt");
-            } else if (p.isInJail()) {
-                statLabels[i].setText("In Jail");
-            } else {
-                statLabels[i].setText("Active");
-            }
-        }
-
-        playerTurn.setText("Player " + (gameState.getCurrentTurn() + 1));
-
-        if (controller.getLastDiceRoll() > 0) {
-            diceNum.setText(String.valueOf(controller.getLastDiceRoll()));
-        } else {
-            diceNum.setText("-");
-        }
-
-        for (int i = 0; i < slotNumLabels.length; i++) {
-            String sqName = gameState.getSquareName(i);
-            if (!sqName.isEmpty()) {
-                slotNumLabels[i].setText("<html><b>" + i + "</b><br>" + sqName + "</html>");
-            } else {
-                slotNumLabels[i].setText(String.valueOf(i));
-            }
-            slotPanels[i].setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        }
-        for (int p = 0; p < GameState.NUM_PLAYERS; p++) {
-            Player player = gameState.getPlayer(p);
-            if (player.isActive()) {
-                int pos = player.getPosition();
-                String txt = slotNumLabels[pos].getText();
-                String marker = "<font color='" + colorToHex(PLAYER_COLORS[p]) + "'><b>P" + (p + 1) + "</b></font>";
-                if (txt.contains("</html>")) {
-                    txt = txt.replace("</html>", " " + marker + "</html>");
-                } else {
-                    txt = "<html>" + txt + " " + marker + "</html>";
-                }
-                slotNumLabels[pos].setText(txt);
-                slotPanels[pos].setBorder(javax.swing.BorderFactory.createLineBorder(PLAYER_COLORS[p], 3));
-            }
-        }
-
-        diceButton.setEnabled(!controller.hasRolled() && !gameState.isGameOver());
-        buyLandButton.setEnabled(controller.canBuyLand());
-        endTurnButton.setEnabled(controller.hasRolled() && !gameState.isGameOver());
-    }
-
-    private void showMessage(String msg) {
-        if (msg != null && !msg.trim().isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, msg);
-        }
-    }
-
-    private void showSellDialog() {
-        if (gameState.isGameOver()) return;
-        java.util.List<Integer> owned = controller.getOwnedProperties(gameState.getCurrentTurn());
-        if (owned.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "You don't own any properties.");
-            return;
-        }
-
-        String[] options = new String[owned.size()];
-        for (int i = 0; i < owned.size(); i++) {
-            Land land = gameState.getLand(owned.get(i));
-            options[i] = land.getName() + " (sell for $" + (land.getPrice() / 2) + ")";
-        }
-
-        String choice = (String) javax.swing.JOptionPane.showInputDialog(
-            this, "Select property to sell:", "Sell Property",
-            javax.swing.JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-
-        if (choice != null) {
-            for (int i = 0; i < options.length; i++) {
-                if (options[i].equals(choice)) {
-                    controller.sellProperty(owned.get(i));
-                    refreshUI();
-                    showMessage(controller.getLastMessage());
-                    break;
-                }
-            }
-        }
-    }
-
-    private String colorToHex(Color c) {
-        return String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
-    }
-
-    public GameState getGameState() {
-        return gameState;
-    }
-
-    public GameController getController() {
-        return controller;
+        view = new GameView(model, controller, this,
+            new javax.swing.JLabel[] {
+                landName1, landName2, landName3,
+                landName7, landName8, landName9, landName10, landName11,
+                landName12, landName13, landName14,
+                landName19, landName20, landName21, landName22, landName23,
+                landName26, landName35,
+                landName38, landName39, landName40, landName41 },
+            new javax.swing.JLabel[] {
+                landPrice1, landPrice2, landPrice3,
+                landPrice7, landPrice8, landPrice9, landPrice10, landPrice11,
+                landPrice12, landPrice13, landPrice14,
+                landPrice19, landPrice20, landPrice21, landPrice22, landPrice23,
+                landPrice26, landPrice35,
+                landPrice38, landPrice39, landPrice40, landPrice41 },
+            new javax.swing.JPanel[] {
+                ownerColor1, ownerColor2, ownerColor3,
+                ownerColor7, ownerColor8, ownerColor9, ownerColor10, ownerColor11,
+                ownerColor12, ownerColor13, ownerColor14,
+                ownerColor19, ownerColor20, ownerColor21, ownerColor22, ownerColor23,
+                ownerColor26, ownerColor35,
+                ownerColor38, ownerColor39, ownerColor40, ownerColor41 },
+            new javax.swing.JPanel[] {
+                slot0, slot1, slot2, slot3, slot4, slot5, slot6, slot7,
+                slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15,
+                slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23,
+                slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31,
+                slot32, slot33, slot34, slot35, slot36, slot37, slot38, slot39,
+                slot40, slot41, slot42, slot43 },
+            new javax.swing.JLabel[] {
+                slotNum0, slotNum1, slotNum2, slotNum3, slotNum4, slotNum5,
+                slotNum6, slotNum7, slotNum8, slotNum9, slotNum10, slotNum11,
+                slotNum12, slotNum13, slotNum14, slotNum15, slotNum16, slotNum17,
+                slotNum18, slotNum19, slotNum20, slotNum21, slotNum22, slotNum23,
+                slotNum24, slotNum25, slotNum26, slotNum27, slotNum28, slotNum29,
+                slotNum30, slotNum31, slotNum32, slotNum33, slotNum34, slotNum35,
+                slotNum36, slotNum37, slotNum38, slotNum39, slotNum40, slotNum41,
+                slotNum42, slotNum43 },
+            new javax.swing.JLabel[] { balance1, balance2, balance3, balance4 },
+            new javax.swing.JLabel[] { position1, position2, position3, position4 },
+            new javax.swing.JLabel[] { status1, status2, status3, status4 },
+            playerTurn, diceNum,
+            diceButton, buyLandButton, endTurnButton
+        );
     }
 
     /**
@@ -2410,31 +2263,19 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void diceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diceButtonActionPerformed
-        controller.rollDice();
-        refreshUI();
-        showMessage(controller.getLastMessage());
-        if (gameState.isGameOver() && gameState.getWinnerIndex() >= 0) {
-            javax.swing.JOptionPane.showMessageDialog(this,
-                "Player " + (gameState.getWinnerIndex() + 1) + " wins!",
-                "Game Over", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-        }
+        view.onRollDice();
     }//GEN-LAST:event_diceButtonActionPerformed
 
     private void endTurnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endTurnButtonActionPerformed
-        controller.endTurn();
-        refreshUI();
+        view.onEndTurn();
     }//GEN-LAST:event_endTurnButtonActionPerformed
 
     private void editorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorButtonActionPerformed
-        java.awt.EventQueue.invokeLater(() -> {
-            new GameEditorGUI(gameState, controller, this).setVisible(true);
-        });
+        view.onOpenEditor();
     }//GEN-LAST:event_editorButtonActionPerformed
 
     private void buyLandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyLandButtonActionPerformed
-        controller.buyLand();
-        refreshUI();
-        showMessage(controller.getLastMessage());
+        view.onBuyLand();
     }//GEN-LAST:event_buyLandButtonActionPerformed
 
     /**
