@@ -274,7 +274,6 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
         diceNum = new javax.swing.JLabel();
         buyLandButton = new javax.swing.JButton();
         endTurnButton = new javax.swing.JButton();
-        editorButton = new javax.swing.JButton();
         currentTurnLabel = new javax.swing.JLabel();
         playerTurn = new javax.swing.JLabel();
 
@@ -2170,14 +2169,6 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             }
         });
 
-        editorButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        editorButton.setText("Editor");
-        editorButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editorButtonActionPerformed(evt);
-            }
-        });
-
         currentTurnLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         currentTurnLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         currentTurnLabel.setText("Current Turn:");
@@ -2195,7 +2186,6 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addGroup(actionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(diceNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(diceButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(editorButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buyLandButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(endTurnButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(currentTurnLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2217,9 +2207,7 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
                 .addComponent(currentTurnLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(playerTurn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
-                .addComponent(editorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(292, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -2269,10 +2257,6 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private void endTurnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endTurnButtonActionPerformed
         view.onEndTurn();
     }//GEN-LAST:event_endTurnButtonActionPerformed
-
-    private void editorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorButtonActionPerformed
-        view.onOpenEditor();
-    }//GEN-LAST:event_editorButtonActionPerformed
 
     private void buyLandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyLandButtonActionPerformed
         view.onBuyLand();
@@ -2331,7 +2315,6 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
     private javax.swing.JLabel currentTurnLabel;
     private javax.swing.JButton diceButton;
     private javax.swing.JLabel diceNum;
-    private javax.swing.JButton editorButton;
     private javax.swing.JButton endTurnButton;
     private javax.swing.JPanel gameBoardPanel;
     private javax.swing.JEditorPane jEditorPane1;
