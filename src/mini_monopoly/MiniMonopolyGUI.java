@@ -65,6 +65,38 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             playerTurn, diceNum,
             diceButton, buyLandButton, endTurnButton
         );
+
+        installEditorShortcuts();
+    }
+
+    private static final int CORNER_HIT_SIZE = 100;
+
+    private void installEditorShortcuts() {
+        javax.swing.KeyStroke ctrlE = javax.swing.KeyStroke.getKeyStroke(
+            java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK);
+        getRootPane().getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW)
+            .put(ctrlE, "openEditor");
+        getRootPane().getActionMap().put("openEditor", new javax.swing.AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                view.onOpenEditor();
+            }
+        });
+
+        java.awt.Toolkit.getDefaultToolkit().addAWTEventListener(event -> {
+            if (!(event instanceof java.awt.event.MouseEvent)) return;
+            java.awt.event.MouseEvent me = (java.awt.event.MouseEvent) event;
+            if (me.getID() != java.awt.event.MouseEvent.MOUSE_CLICKED) return;
+            if (me.getClickCount() != 3) return;
+            if (!javax.swing.SwingUtilities.isDescendingFrom(me.getComponent(), this)) return;
+            java.awt.Container pane = getContentPane();
+            java.awt.Point p = javax.swing.SwingUtilities.convertPoint(
+                me.getComponent(), me.getPoint(), pane);
+            if (p.x >= pane.getWidth() - CORNER_HIT_SIZE
+                    && p.y >= pane.getHeight() - CORNER_HIT_SIZE) {
+                view.onOpenEditor();
+            }
+        }, java.awt.AWTEvent.MOUSE_EVENT_MASK);
     }
 
     /**
