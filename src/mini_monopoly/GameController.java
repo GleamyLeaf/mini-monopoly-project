@@ -81,7 +81,7 @@ public class GameController {
                 Land land = model.getLand(landIdx);
                 int owner = land.getOwnerIndex();
                 if (owner >= 0 && owner != turn && model.getPlayer(owner).isActive()) {
-                    int rent = land.getPrice() / 5;
+                    int rent = land.getPrice() / 10;
                     current.setBalance(current.getBalance() - rent);
                     model.getPlayer(owner).setBalance(model.getPlayer(owner).getBalance() + rent);
                     lastMessage += "Paid $" + rent + " rent to Player " + (owner + 1) + ".\n";
