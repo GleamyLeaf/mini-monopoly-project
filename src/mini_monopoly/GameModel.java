@@ -11,7 +11,7 @@ public class GameModel {
     public static final int BOARD_SIZE = 44;
     public static final int NUM_PLAYERS = 4;
     public static final int STARTING_BALANCE = 2000;
-    public static final int GO_SALARY = 1500;
+    public static final int GO_SALARY = 2000;
     public static final int TAX_AMOUNT = 500;
     public static final int JAIL_BAIL = 200;
     public static final int JAIL_SLOT = 15;
