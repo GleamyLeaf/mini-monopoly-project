@@ -40,7 +40,6 @@ public class GameController {
         }
 
         handleLanding(current);
-        checkBankruptcy();
         checkWin();
 
         rolled = true;
@@ -55,14 +54,28 @@ public class GameController {
 
         int landIdx = model.getLandIndexForSlot(pos);
         Land land = model.getLand(landIdx);
-        int owner = land.getOwnerIndex();
-        if (owner >= 0 && owner != turn && model.getPlayer(owner).isActive()) {
-            int rent = land.getPrice() / 10;
-            current.setBalance(current.getBalance() - rent);
-            model.getPlayer(owner).setBalance(model.getPlayer(owner).getBalance() + rent);
-            lastMessage += "Paid $" + rent + " rent to Player " + (owner + 1) + ".\n";
-        } else if (owner == -1) {
+        int ownerIdx = land.getOwnerIndex();
+
+        if (ownerIdx == -1) {
             lastMessage += land.getName() + " is available ($" + land.getPrice() + ").\n";
+            return;
+        }
+        if (ownerIdx == turn || !model.getPlayer(ownerIdx).isActive()) return;
+
+        int rent = land.getPrice() / 10;
+        Player owner = model.getPlayer(ownerIdx);
+        int pay = Math.min(rent, current.getBalance());
+
+        current.setBalance(current.getBalance() - pay);
+        owner.setBalance(owner.getBalance() + pay);
+        lastMessage += "Paid $" + pay + " rent to Player " + (ownerIdx + 1) + ".\n";
+
+        if (pay < rent) {
+            current.setActive(false);
+            lastMessage += "Player " + (turn + 1) + " is bankrupt!\n";
+            for (Land l : model.getLands()) {
+                if (l.getOwnerIndex() == turn) l.setOwnerIndex(-1);
+            }
         }
     }
 
@@ -129,20 +142,6 @@ public class GameController {
             if (lands[i].getOwnerIndex() == playerIndex) owned.add(i);
         }
         return owned;
-    }
-
-    private void checkBankruptcy() {
-        Land[] lands = model.getLands();
-        for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {
-            Player p = model.getPlayer(i);
-            if (p.isActive() && p.getBalance() < 0) {
-                p.setActive(false);
-                lastMessage += "Player " + (i + 1) + " is bankrupt!\n";
-                for (Land l : lands) {
-                    if (l.getOwnerIndex() == i) l.setOwnerIndex(-1);
-                }
-            }
-        }
     }
 
     private void checkWin() {
