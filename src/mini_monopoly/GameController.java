@@ -6,16 +6,6 @@ import java.util.Random;
 
 public class GameController {
 
-    private static final String[] CHANCE_CARDS = {
-        "Bank dividend: +$200",
-        "Doctor fees: -$150",
-        "Competition prize: +$500",
-        "School fees: -$250",
-        "Repair costs: -$300",
-        "Bonus: +$100"
-    };
-    private static final int[] CHANCE_VALUES = {200, -150, 500, -250, -300, 100};
-
     private GameModel model;
     private Random random;
     private int lastDiceRoll;
@@ -35,19 +25,6 @@ public class GameController {
         if (!current.isActive()) { endTurn(); return 0; }
 
         lastMessage = "";
-
-        if (current.isInJail()) {
-            if (current.getBalance() >= GameModel.JAIL_BAIL) {
-                current.setBalance(current.getBalance() - GameModel.JAIL_BAIL);
-                current.setInJail(false);
-                lastMessage += "Paid $" + GameModel.JAIL_BAIL + " bail.\n";
-            } else {
-                current.setInJail(false);
-                lastMessage += "Released from jail.\n";
-                rolled = true;
-                return 0;
-            }
-        }
 
         int die1 = random.nextInt(6) + 1;
         int die2 = random.nextInt(6) + 1;
@@ -72,52 +49,20 @@ public class GameController {
 
     private void handleLanding(Player current) {
         int pos = current.getPosition();
-        int type = model.getSquareType(pos);
         int turn = model.getCurrentTurn();
 
-        switch (type) {
-            case GameModel.SQ_PROPERTY:
-                int landIdx = model.getLandIndexForSlot(pos);
-                Land land = model.getLand(landIdx);
-                int owner = land.getOwnerIndex();
-                if (owner >= 0 && owner != turn && model.getPlayer(owner).isActive()) {
-                    int rent = land.getPrice() / 10;
-                    current.setBalance(current.getBalance() - rent);
-                    model.getPlayer(owner).setBalance(model.getPlayer(owner).getBalance() + rent);
-                    lastMessage += "Paid $" + rent + " rent to Player " + (owner + 1) + ".\n";
-                } else if (owner == -1) {
-                    lastMessage += land.getName() + " is available ($" + land.getPrice() + ").\n";
-                }
-                break;
+        if (model.getSquareType(pos) != GameModel.SQ_PROPERTY) return;
 
-            case GameModel.SQ_TAX:
-                current.setBalance(current.getBalance() - GameModel.TAX_AMOUNT);
-                lastMessage += "Tax! -$" + GameModel.TAX_AMOUNT + ".\n";
-                break;
-
-            case GameModel.SQ_CHANCE:
-                int card = random.nextInt(CHANCE_CARDS.length);
-                current.setBalance(current.getBalance() + CHANCE_VALUES[card]);
-                lastMessage += "Chance: " + CHANCE_CARDS[card] + "\n";
-                break;
-
-            case GameModel.SQ_GO_TO_JAIL:
-                current.setPosition(GameModel.JAIL_SLOT);
-                current.setInJail(true);
-                lastMessage += "Go to Jail!\n";
-                break;
-
-            case GameModel.SQ_GO:
-                lastMessage += "Landed on GO.\n";
-                break;
-
-            case GameModel.SQ_JAIL:
-                lastMessage += "Just visiting Jail.\n";
-                break;
-
-            default:
-                lastMessage += "Free Parking.\n";
-                break;
+        int landIdx = model.getLandIndexForSlot(pos);
+        Land land = model.getLand(landIdx);
+        int owner = land.getOwnerIndex();
+        if (owner >= 0 && owner != turn && model.getPlayer(owner).isActive()) {
+            int rent = land.getPrice() / 10;
+            current.setBalance(current.getBalance() - rent);
+            model.getPlayer(owner).setBalance(model.getPlayer(owner).getBalance() + rent);
+            lastMessage += "Paid $" + rent + " rent to Player " + (owner + 1) + ".\n";
+        } else if (owner == -1) {
+            lastMessage += land.getName() + " is available ($" + land.getPrice() + ").\n";
         }
     }
 
@@ -215,10 +160,10 @@ public class GameController {
     }
 
     public GameModel getModel() { return model; }
-    
+
     public int getLastDiceRoll() { return lastDiceRoll; }
     public boolean hasRolled() { return rolled; }
     public void setRolled(boolean v) { rolled = v; }
-    
+
     public String getLastMessage() { return lastMessage; }
 }

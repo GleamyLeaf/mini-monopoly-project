@@ -84,9 +84,7 @@ public class GameView {
             Player p = model.getPlayer(i);
             balanceLabels[i].setText("$" + p.getBalance());
             positionLabels[i].setText(String.valueOf(p.getPosition()));
-            if (!p.isActive()) statusLabels[i].setText("Bankrupt");
-            else if (p.isInJail()) statusLabels[i].setText("In Jail");
-            else statusLabels[i].setText("Active");
+            statusLabels[i].setText(p.isActive() ? "Active" : "Bankrupt");
         }
 
         turnLabel.setText("Player " + (model.getCurrentTurn() + 1));
