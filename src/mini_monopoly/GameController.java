@@ -62,13 +62,15 @@ public class GameController {
         }
         if (ownerIdx == turn || !model.getPlayer(ownerIdx).isActive()) return;
 
-        int rent = land.getPrice() / 10;
+        int multiplier = consecutiveMultiplier(pos, ownerIdx);
+        int rent = (land.getPrice() / 10) * multiplier;
         Player owner = model.getPlayer(ownerIdx);
         int pay = Math.min(rent, current.getBalance());
 
         current.setBalance(current.getBalance() - pay);
         owner.setBalance(owner.getBalance() + pay);
-        lastMessage += "Paid $" + pay + " rent to Player " + (ownerIdx + 1) + ".\n";
+        String mult = multiplier > 1 ? " (x" + multiplier + ")" : "";
+        lastMessage += "Paid $" + pay + " rent" + mult + " to Player " + (ownerIdx + 1) + ".\n";
 
         if (pay < rent) {
             current.setActive(false);
@@ -77,6 +79,27 @@ public class GameController {
                 if (l.getOwnerIndex() == turn) l.setOwnerIndex(-1);
             }
         }
+    }
+
+    private int consecutiveMultiplier(int landedSlot, int ownerIdx) {
+        int side = landedSlot / 11;
+        int run = 1;
+        for (int s = landedSlot - 1; s >= 0 && s / 11 == side; s--) {
+            if (!ownsProperty(s, ownerIdx)) break;
+            run++;
+        }
+        for (int s = landedSlot + 1; s < GameModel.BOARD_SIZE && s / 11 == side; s++) {
+            if (!ownsProperty(s, ownerIdx)) break;
+            run++;
+        }
+        if (run >= 3) return 3;
+        if (run == 2) return 2;
+        return 1;
+    }
+
+    private boolean ownsProperty(int slot, int ownerIdx) {
+        if (!model.isPropertySlot(slot)) return false;
+        return model.getLand(model.getLandIndexForSlot(slot)).getOwnerIndex() == ownerIdx;
     }
 
     public boolean canBuyLand() {
