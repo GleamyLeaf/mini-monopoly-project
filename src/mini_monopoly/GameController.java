@@ -122,14 +122,19 @@ public class GameController {
         return true;
     }
 
-    public boolean sellProperty(int landIndex) {
-        Player p = model.getPlayer(model.getCurrentTurn());
-        Land land = model.getLand(landIndex);
-        if (land.getOwnerIndex() != model.getCurrentTurn()) return false;
-        int price = land.getPrice() / 2;
-        p.setBalance(p.getBalance() + price);
-        land.setOwnerIndex(-1);
-        lastMessage = "Sold " + land.getName() + " for $" + price + ".";
+    public boolean tradeLand(int sellerIdx, int buyerIdx, int landIdx, int price) {
+        if (rolled || model.isGameOver()) return false;
+        Land land = model.getLand(landIdx);
+        if (land.getOwnerIndex() != sellerIdx) return false;
+        Player buyer = model.getPlayer(buyerIdx);
+        Player seller = model.getPlayer(sellerIdx);
+        if (buyer.getBalance() < price) return false;
+
+        buyer.setBalance(buyer.getBalance() - price);
+        seller.setBalance(seller.getBalance() + price);
+        land.setOwnerIndex(buyerIdx);
+        lastMessage = "Player " + (buyerIdx + 1) + " bought " + land.getName()
+            + " from Player " + (sellerIdx + 1) + " for $" + price + ".";
         return true;
     }
 
