@@ -151,7 +151,7 @@ public class GameController {
     }
 
     public void applyEditorChanges(int[] balances, int[] positions,
-                                   boolean[] active, int turn) {
+                                   boolean[] active, int turn, int[] landOwners) {
         for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {
             Player p = model.getPlayer(i);
             p.setBalance(balances[i]);
@@ -160,7 +160,16 @@ public class GameController {
             p.setActive(active[i]);
         }
         model.setCurrentTurn(turn);
+        if (landOwners != null) {
+            Land[] lands = model.getLands();
+            for (int i = 0; i < lands.length && i < landOwners.length; i++) {
+                int owner = landOwners[i];
+                if (owner < -1 || owner >= GameModel.NUM_PLAYERS) continue;
+                lands[i].setOwnerIndex(owner);
+            }
+        }
         rolled = false;
+        checkWin();
     }
 
     public List<Integer> getOwnedProperties(int playerIndex) {

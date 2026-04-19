@@ -13,6 +13,7 @@ public class GameEditorGUI extends javax.swing.JFrame {
     private GameModel model;
     private GameController controller;
     private GameView gameView;
+    private javax.swing.JTable landTable;
 
     /**
      * Creates new form GameEditorGUI
@@ -29,9 +30,56 @@ public class GameEditorGUI extends javax.swing.JFrame {
         this.controller = controller;
         this.gameView = gameView;
 
+        installLandTable();
         loadFromModel();
 
         saveButton.addActionListener(e -> saveToModel());
+    }
+
+    private void installLandTable() {
+        Land[] lands = model.getLands();
+        String[] cols = {"Slot", "Land", "Owner"};
+        Object[][] rows = new Object[lands.length][3];
+        for (int i = 0; i < lands.length; i++) {
+            rows[i][0] = GameModel.PROPERTY_SLOTS[i];
+            rows[i][1] = lands[i].getName();
+            rows[i][2] = ownerLabel(lands[i].getOwnerIndex());
+        }
+        javax.swing.table.DefaultTableModel tm = new javax.swing.table.DefaultTableModel(rows, cols) {
+            @Override public boolean isCellEditable(int r, int c) { return c == 2; }
+        };
+        landTable = new javax.swing.JTable(tm);
+        landTable.setRowHeight(22);
+        javax.swing.JComboBox<String> ownerBox = new javax.swing.JComboBox<>(
+            new String[]{"None", "P1", "P2", "P3", "P4"});
+        landTable.getColumnModel().getColumn(0).setMaxWidth(60);
+        landTable.getColumnModel().getColumn(2).setCellEditor(new javax.swing.DefaultCellEditor(ownerBox));
+
+        javax.swing.JScrollPane scroll = new javax.swing.JScrollPane(landTable);
+        scroll.setBorder(javax.swing.BorderFactory.createTitledBorder("Land Ownership"));
+        scroll.setPreferredSize(new java.awt.Dimension(320, 0));
+
+        javax.swing.JPanel existing = (javax.swing.JPanel) getContentPane();
+        javax.swing.JPanel wrapper = new javax.swing.JPanel(new java.awt.BorderLayout());
+        wrapper.add(existing, java.awt.BorderLayout.CENTER);
+        wrapper.add(scroll, java.awt.BorderLayout.EAST);
+        setContentPane(wrapper);
+        pack();
+    }
+
+    private String ownerLabel(int ownerIdx) {
+        return ownerIdx < 0 ? "None" : "P" + (ownerIdx + 1);
+    }
+
+    private int parseOwner(Object cellVal) {
+        if (cellVal == null) return -1;
+        String s = cellVal.toString();
+        if ("None".equals(s)) return -1;
+        if (s.length() >= 2 && s.charAt(0) == 'P') {
+            try { return Integer.parseInt(s.substring(1)) - 1; }
+            catch (NumberFormatException ex) { return -1; }
+        }
+        return -1;
     }
 
     private void loadFromModel() {
@@ -75,7 +123,14 @@ public class GameEditorGUI extends javax.swing.JFrame {
             if (turnButtons[i].isSelected()) { turn = i; break; }
         }
 
-        controller.applyEditorChanges(balances, positions, activeFlags, turn);
+        if (landTable.isEditing()) landTable.getCellEditor().stopCellEditing();
+        Land[] lands = model.getLands();
+        int[] landOwners = new int[lands.length];
+        for (int i = 0; i < lands.length; i++) {
+            landOwners[i] = parseOwner(landTable.getModel().getValueAt(i, 2));
+        }
+
+        controller.applyEditorChanges(balances, positions, activeFlags, turn, landOwners);
         gameView.refresh();
         this.dispose();
     }
