@@ -1,9 +1,14 @@
 package mini_monopoly;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+/**
+ * View class. Reads the model and updates the UI widgets. Also
+ * contains the handlers wired up by the main GUI buttons and menu.
+ */
 public class GameView {
 
     private static final Color[] PLAYER_COLORS = {
@@ -59,15 +64,16 @@ public class GameView {
 
         javax.swing.JMenuBar menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu gameMenu = new javax.swing.JMenu("Game");
-        javax.swing.JMenuItem sellItem = new javax.swing.JMenuItem("Sell Property");
-        sellItem.addActionListener(e -> onSellProperty());
-        gameMenu.add(sellItem);
+        javax.swing.JMenuItem tradeItem = new javax.swing.JMenuItem("Trade");
+        tradeItem.addActionListener(e -> onOpenTrade());
+        gameMenu.add(tradeItem);
         menuBar.add(gameMenu);
         gui.setJMenuBar(menuBar);
 
         refresh();
     }
 
+    /** Reads the model and updates all labels / button states. */
     public void refresh() {
         Land[] lands = model.getLands();
         for (int i = 0; i < lands.length && i < landNameLabels.length; i++) {
@@ -84,9 +90,7 @@ public class GameView {
             Player p = model.getPlayer(i);
             balanceLabels[i].setText("$" + p.getBalance());
             positionLabels[i].setText(String.valueOf(p.getPosition()));
-            if (!p.isActive()) statusLabels[i].setText("Bankrupt");
-            else if (p.isInJail()) statusLabels[i].setText("In Jail");
-            else statusLabels[i].setText("Active");
+            statusLabels[i].setText(p.isActive() ? "Active" : "Bankrupt");
         }
 
         turnLabel.setText("Player " + (model.getCurrentTurn() + 1));
@@ -152,30 +156,134 @@ public class GameView {
         new GameEditorGUI(model, controller, this).setVisible(true);
     }
 
-    public void onSellProperty() {
-        if (model.isGameOver()) return;
-        List<Integer> owned = controller.getOwnedProperties(model.getCurrentTurn());
+    /**
+     * Opens the trade dialog. Only allowed before rolling the dice.
+     * The current player picks buy or sell, picks the counterparty,
+     * picks the slot, enters a price, and the other player confirms.
+     */
+    public void onOpenTrade() {
+        if (model.isGameOver()) {
+            JOptionPane.showMessageDialog(gui, "Game is over.");
+            return;
+        }
+        if (controller.hasRolled()) {
+            JOptionPane.showMessageDialog(gui,
+                "Trading is only allowed before rolling the dice.");
+            return;
+        }
+        int currentIdx = model.getCurrentTurn();
+        if (!model.getPlayer(currentIdx).isActive()) return;
+
+        Object[] dirs = {"Sell", "Buy"};
+        int dir = JOptionPane.showOptionDialog(gui,
+            "Player " + (currentIdx + 1) + " — trade direction:",
+            "Trade", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+            null, dirs, dirs[0]);
+        if (dir < 0) return;
+        if (dir == 0) trySell(currentIdx);
+        else tryBuy(currentIdx);
+    }
+
+    private void trySell(int sellerIdx) {
+        List<Integer> owned = controller.getOwnedProperties(sellerIdx);
         if (owned.isEmpty()) {
             JOptionPane.showMessageDialog(gui, "You don't own any properties.");
             return;
         }
-        String[] options = new String[owned.size()];
-        for (int i = 0; i < owned.size(); i++) {
-            Land land = model.getLand(owned.get(i));
-            options[i] = land.getName() + " (sell for $" + (land.getPrice() / 2) + ")";
+        int landIdx = pickLand(owned, "Select property to sell:");
+        if (landIdx < 0) return;
+
+        List<Integer> buyers = new ArrayList<>();
+        for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {
+            if (i != sellerIdx && model.getPlayer(i).isActive()) buyers.add(i);
         }
-        String choice = (String) JOptionPane.showInputDialog(gui,
-            "Select property to sell:", "Sell Property",
-            JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        if (choice != null) {
-            for (int i = 0; i < options.length; i++) {
-                if (options[i].equals(choice)) {
-                    controller.sellProperty(owned.get(i));
-                    refresh();
-                    showMessage(controller.getLastMessage());
-                    break;
-                }
-            }
+        if (buyers.isEmpty()) {
+            JOptionPane.showMessageDialog(gui, "No active counterparty.");
+            return;
+        }
+        int buyerIdx = pickPlayer(buyers, "Select buyer:");
+        if (buyerIdx < 0) return;
+
+        int price = askPrice();
+        if (price < 0) return;
+        doTrade(sellerIdx, buyerIdx, landIdx, price);
+    }
+
+    private void tryBuy(int buyerIdx) {
+        List<Integer> sellers = new ArrayList<>();
+        for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {
+            if (i != buyerIdx && model.getPlayer(i).isActive()
+                && !controller.getOwnedProperties(i).isEmpty()) sellers.add(i);
+        }
+        if (sellers.isEmpty()) {
+            JOptionPane.showMessageDialog(gui, "Nobody has a property to sell.");
+            return;
+        }
+        int sellerIdx = pickPlayer(sellers, "Select seller:");
+        if (sellerIdx < 0) return;
+
+        List<Integer> owned = controller.getOwnedProperties(sellerIdx);
+        int landIdx = pickLand(owned, "Select property to buy:");
+        if (landIdx < 0) return;
+
+        int price = askPrice();
+        if (price < 0) return;
+        doTrade(sellerIdx, buyerIdx, landIdx, price);
+    }
+
+    private void doTrade(int sellerIdx, int buyerIdx, int landIdx, int price) {
+        Land land = model.getLand(landIdx);
+        String msg = "Player " + (sellerIdx + 1) + " sells " + land.getName()
+            + " to Player " + (buyerIdx + 1) + " for $" + price + ".\nBoth agree?";
+        int confirm = JOptionPane.showConfirmDialog(gui, msg,
+            "Confirm Trade", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) return;
+
+        boolean ok = controller.tradeLand(sellerIdx, buyerIdx, landIdx, price);
+        if (!ok) {
+            JOptionPane.showMessageDialog(gui, "Trade failed.");
+            return;
+        }
+        refresh();
+        showMessage(controller.getLastMessage());
+    }
+
+    private int pickLand(List<Integer> landIndices, String prompt) {
+        String[] opts = new String[landIndices.size()];
+        for (int i = 0; i < landIndices.size(); i++) {
+            Land l = model.getLand(landIndices.get(i));
+            opts[i] = "Slot " + GameModel.PROPERTY_SLOTS[landIndices.get(i)]
+                + " - " + l.getName() + " ($" + l.getPrice() + ")";
+        }
+        String choice = (String) JOptionPane.showInputDialog(gui, prompt, "Trade",
+            JOptionPane.PLAIN_MESSAGE, null, opts, opts[0]);
+        if (choice == null) return -1;
+        for (int i = 0; i < opts.length; i++) if (opts[i].equals(choice)) return landIndices.get(i);
+        return -1;
+    }
+
+    private int pickPlayer(List<Integer> playerIndices, String prompt) {
+        String[] opts = new String[playerIndices.size()];
+        for (int i = 0; i < playerIndices.size(); i++) {
+            opts[i] = "Player " + (playerIndices.get(i) + 1);
+        }
+        String choice = (String) JOptionPane.showInputDialog(gui, prompt, "Trade",
+            JOptionPane.PLAIN_MESSAGE, null, opts, opts[0]);
+        if (choice == null) return -1;
+        for (int i = 0; i < opts.length; i++) if (opts[i].equals(choice)) return playerIndices.get(i);
+        return -1;
+    }
+
+    private int askPrice() {
+        String input = JOptionPane.showInputDialog(gui, "Enter agreed price:");
+        if (input == null) return -1;
+        try {
+            int p = Integer.parseInt(input.trim());
+            if (p < 0) return -1;
+            return p;
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(gui, "Invalid price.");
+            return -1;
         }
     }
 

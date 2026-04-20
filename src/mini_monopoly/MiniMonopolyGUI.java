@@ -5,8 +5,10 @@
 package mini_monopoly;
 
 /**
- *
- * @author Kenne
+ * Main game window. Builds the board UI, the player panels and the
+ * dice / Buy / End Turn buttons. Creates the model, controller, view
+ * and wires up the hidden editor shortcuts (Ctrl+E and triple click
+ * bottom right).
  */
 public class MiniMonopolyGUI extends javax.swing.JFrame {
 
@@ -71,7 +73,6 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
 
     private static final int CORNER_HIT_SIZE = 100;
 
-//  AI assist
     private void installEditorShortcuts() {
         javax.swing.KeyStroke ctrlE = javax.swing.KeyStroke.getKeyStroke(
             java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK);

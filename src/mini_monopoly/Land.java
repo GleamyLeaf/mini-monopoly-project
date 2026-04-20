@@ -1,5 +1,9 @@
 package mini_monopoly;
 
+/**
+ * A land slot on the board. Has a name, price, and an owner index
+ * (-1 means no owner).
+ */
 public class Land {
 
     private String name;

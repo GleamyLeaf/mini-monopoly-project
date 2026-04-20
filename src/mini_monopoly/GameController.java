@@ -4,17 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Controller class. Handles the game logic like rolling dice,
+ * buying land, paying rent, trading, ending turn, and applying
+ * changes from the game editor.
+ */
 public class GameController {
-
-    private static final String[] CHANCE_CARDS = {
-        "Bank dividend: +$200",
-        "Doctor fees: -$150",
-        "Competition prize: +$500",
-        "School fees: -$250",
-        "Repair costs: -$300",
-        "Bonus: +$100"
-    };
-    private static final int[] CHANCE_VALUES = {200, -150, 500, -250, -300, 100};
 
     private GameModel model;
     private Random random;
@@ -35,20 +30,6 @@ public class GameController {
         if (!current.isActive()) { endTurn(); return 0; }
 
         lastMessage = "";
-
-        if (current.isInJail()) {
-            if (current.getBalance() >= GameModel.JAIL_BAIL) {
-                current.setBalance(current.getBalance() - GameModel.JAIL_BAIL);
-                current.setInJail(false);
-                lastMessage += "Paid $" + GameModel.JAIL_BAIL + " bail.\n";
-            } else {
-                current.setInJail(false);
-                lastMessage += "Released from jail.\n";
-                rolled = true;
-                return 0;
-            }
-        }
-
         int die1 = random.nextInt(6) + 1;
         int die2 = random.nextInt(6) + 1;
         lastDiceRoll = die1 + die2;
@@ -63,7 +44,6 @@ public class GameController {
         }
 
         handleLanding(current);
-        checkBankruptcy();
         checkWin();
 
         rolled = true;
@@ -72,53 +52,58 @@ public class GameController {
 
     private void handleLanding(Player current) {
         int pos = current.getPosition();
-        int type = model.getSquareType(pos);
         int turn = model.getCurrentTurn();
 
-        switch (type) {
-            case GameModel.SQ_PROPERTY:
-                int landIdx = model.getLandIndexForSlot(pos);
-                Land land = model.getLand(landIdx);
-                int owner = land.getOwnerIndex();
-                if (owner >= 0 && owner != turn && model.getPlayer(owner).isActive()) {
-                    int rent = land.getPrice() / 5;
-                    current.setBalance(current.getBalance() - rent);
-                    model.getPlayer(owner).setBalance(model.getPlayer(owner).getBalance() + rent);
-                    lastMessage += "Paid $" + rent + " rent to Player " + (owner + 1) + ".\n";
-                } else if (owner == -1) {
-                    lastMessage += land.getName() + " is available ($" + land.getPrice() + ").\n";
-                }
-                break;
+        if (model.getSquareType(pos) != GameModel.SQ_PROPERTY) return;
 
-            case GameModel.SQ_TAX:
-                current.setBalance(current.getBalance() - GameModel.TAX_AMOUNT);
-                lastMessage += "Tax! -$" + GameModel.TAX_AMOUNT + ".\n";
-                break;
+        int landIdx = model.getLandIndexForSlot(pos);
+        Land land = model.getLand(landIdx);
+        int ownerIdx = land.getOwnerIndex();
 
-            case GameModel.SQ_CHANCE:
-                int card = random.nextInt(CHANCE_CARDS.length);
-                current.setBalance(current.getBalance() + CHANCE_VALUES[card]);
-                lastMessage += "Chance: " + CHANCE_CARDS[card] + "\n";
-                break;
-
-            case GameModel.SQ_GO_TO_JAIL:
-                current.setPosition(GameModel.JAIL_SLOT);
-                current.setInJail(true);
-                lastMessage += "Go to Jail!\n";
-                break;
-
-            case GameModel.SQ_GO:
-                lastMessage += "Landed on GO.\n";
-                break;
-
-            case GameModel.SQ_JAIL:
-                lastMessage += "Just visiting Jail.\n";
-                break;
-
-            default:
-                lastMessage += "Free Parking.\n";
-                break;
+        if (ownerIdx == -1) {
+            lastMessage += land.getName() + " is available ($" + land.getPrice() + ").\n";
+            return;
         }
+        if (ownerIdx == turn || !model.getPlayer(ownerIdx).isActive()) return;
+
+        int multiplier = consecutiveMultiplier(pos, ownerIdx);
+        int rent = (land.getPrice() / 10) * multiplier;
+        Player owner = model.getPlayer(ownerIdx);
+        int pay = Math.min(rent, current.getBalance());
+
+        current.setBalance(current.getBalance() - pay);
+        owner.setBalance(owner.getBalance() + pay);
+        String mult = multiplier > 1 ? " (x" + multiplier + ")" : "";
+        lastMessage += "Paid $" + pay + " rent" + mult + " to Player " + (ownerIdx + 1) + ".\n";
+
+        if (pay < rent) {
+            current.setActive(false);
+            lastMessage += "Player " + (turn + 1) + " is bankrupt!\n";
+            for (Land l : model.getLands()) {
+                if (l.getOwnerIndex() == turn) l.setOwnerIndex(-1);
+            }
+        }
+    }
+
+    private int consecutiveMultiplier(int landedSlot, int ownerIdx) {
+        int side = landedSlot / 11;
+        int run = 1;
+        for (int s = landedSlot - 1; s >= 0 && s / 11 == side; s--) {
+            if (!ownsProperty(s, ownerIdx)) break;
+            run++;
+        }
+        for (int s = landedSlot + 1; s < GameModel.BOARD_SIZE && s / 11 == side; s++) {
+            if (!ownsProperty(s, ownerIdx)) break;
+            run++;
+        }
+        if (run >= 3) return 3;
+        if (run == 2) return 2;
+        return 1;
+    }
+
+    private boolean ownsProperty(int slot, int ownerIdx) {
+        if (!model.isPropertySlot(slot)) return false;
+        return model.getLand(model.getLandIndexForSlot(slot)).getOwnerIndex() == ownerIdx;
     }
 
     public boolean canBuyLand() {
@@ -141,14 +126,23 @@ public class GameController {
         return true;
     }
 
-    public boolean sellProperty(int landIndex) {
-        Player p = model.getPlayer(model.getCurrentTurn());
-        Land land = model.getLand(landIndex);
-        if (land.getOwnerIndex() != model.getCurrentTurn()) return false;
-        int price = land.getPrice() / 2;
-        p.setBalance(p.getBalance() + price);
-        land.setOwnerIndex(-1);
-        lastMessage = "Sold " + land.getName() + " for $" + price + ".";
+    /**
+     * Trade a land from seller to buyer at the agreed price.
+     * Only works before rolling the dice.
+     */
+    public boolean tradeLand(int sellerIdx, int buyerIdx, int landIdx, int price) {
+        if (rolled || model.isGameOver()) return false;
+        Land land = model.getLand(landIdx);
+        if (land.getOwnerIndex() != sellerIdx) return false;
+        Player buyer = model.getPlayer(buyerIdx);
+        Player seller = model.getPlayer(sellerIdx);
+        if (buyer.getBalance() < price) return false;
+
+        buyer.setBalance(buyer.getBalance() - price);
+        seller.setBalance(seller.getBalance() + price);
+        land.setOwnerIndex(buyerIdx);
+        lastMessage = "Player " + (buyerIdx + 1) + " bought " + land.getName()
+            + " from Player " + (sellerIdx + 1) + " for $" + price + ".";
         return true;
     }
 
@@ -164,8 +158,12 @@ public class GameController {
         model.setCurrentTurn(next);
     }
 
+    /**
+     * Apply changes made in the game editor. Updates each player's
+     * balance, position, active flag, the current turn, and land owners.
+     */
     public void applyEditorChanges(int[] balances, int[] positions,
-                                   boolean[] active, int turn) {
+                                   boolean[] active, int turn, int[] landOwners) {
         for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {
             Player p = model.getPlayer(i);
             p.setBalance(balances[i]);
@@ -174,7 +172,16 @@ public class GameController {
             p.setActive(active[i]);
         }
         model.setCurrentTurn(turn);
+        if (landOwners != null) {
+            Land[] lands = model.getLands();
+            for (int i = 0; i < lands.length && i < landOwners.length; i++) {
+                int owner = landOwners[i];
+                if (owner < -1 || owner >= GameModel.NUM_PLAYERS) continue;
+                lands[i].setOwnerIndex(owner);
+            }
+        }
         rolled = false;
+        checkWin();
     }
 
     public List<Integer> getOwnedProperties(int playerIndex) {
@@ -184,20 +191,6 @@ public class GameController {
             if (lands[i].getOwnerIndex() == playerIndex) owned.add(i);
         }
         return owned;
-    }
-
-    private void checkBankruptcy() {
-        Land[] lands = model.getLands();
-        for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {
-            Player p = model.getPlayer(i);
-            if (p.isActive() && p.getBalance() < 0) {
-                p.setActive(false);
-                lastMessage += "Player " + (i + 1) + " is bankrupt!\n";
-                for (Land l : lands) {
-                    if (l.getOwnerIndex() == i) l.setOwnerIndex(-1);
-                }
-            }
-        }
     }
 
     private void checkWin() {
@@ -215,10 +208,10 @@ public class GameController {
     }
 
     public GameModel getModel() { return model; }
-    
+
     public int getLastDiceRoll() { return lastDiceRoll; }
     public boolean hasRolled() { return rolled; }
     public void setRolled(boolean v) { rolled = v; }
-    
+
     public String getLastMessage() { return lastMessage; }
 }
