@@ -23,6 +23,7 @@ public class GameController {
         this.lastMessage = "";
     }
 
+    // core
     public int rollDice() {
         if (rolled || model.isGameOver()) return lastDiceRoll;
 
@@ -115,8 +116,10 @@ public class GameController {
         return land.getOwnerIndex() == -1 && p.getBalance() >= land.getPrice();
     }
 
+    // core
     public boolean buyLand() {
         if (!canBuyLand()) return false;
+        
         Player p = model.getPlayer(model.getCurrentTurn());
         int idx = model.getLandIndexForSlot(p.getPosition());
         Land land = model.getLand(idx);
@@ -146,6 +149,7 @@ public class GameController {
         return true;
     }
 
+    // core
     public void endTurn() {
         rolled = false;
         lastDiceRoll = 0;

@@ -73,6 +73,7 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
 
     private static final int CORNER_HIT_SIZE = 100;
 
+    // AI assist
     private void installEditorShortcuts() {
         javax.swing.KeyStroke ctrlE = javax.swing.KeyStroke.getKeyStroke(
             java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK);

@@ -112,7 +112,7 @@ public class GameView {
             slotPanels[i].setBorder(javax.swing.BorderFactory.createEtchedBorder());
         }
         
-        // 
+        // update player info
         for (int p = 0; p < GameModel.NUM_PLAYERS; p++) {
             Player player = model.getPlayer(p);
             if (player.isActive()) {
@@ -137,6 +137,7 @@ public class GameView {
         endButton.setEnabled(controller.hasRolled() && !model.isGameOver());
     }
 
+    // core
     public void onRollDice() {
         controller.rollDice();
         refresh();
@@ -150,12 +151,14 @@ public class GameView {
         }
     }
 
+    // core
     public void onBuyLand() {
         controller.buyLand();
         refresh();
         showMessage(controller.getLastMessage());
     }
 
+    // core
     public void onEndTurn() {
         controller.endTurn();
         refresh();
@@ -175,11 +178,13 @@ public class GameView {
             JOptionPane.showMessageDialog(gui, "Game is over.");
             return;
         }
+        
         if (controller.hasRolled()) {
             JOptionPane.showMessageDialog(gui,
                 "Trading is only allowed before rolling the dice.");
             return;
         }
+        
         int currentIdx = model.getCurrentTurn();
         if (!model.getPlayer(currentIdx).isActive()) return;
 
