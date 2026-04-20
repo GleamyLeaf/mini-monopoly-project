@@ -75,28 +75,33 @@ public class GameView {
 
     /** Reads the model and updates all labels / button states. */
     public void refresh() {
+        // update land name and price labels in ui
         Land[] lands = model.getLands();
         for (int i = 0; i < lands.length && i < landNameLabels.length; i++) {
             landNameLabels[i].setText(lands[i].getName());
             landPriceLabels[i].setText("$" + lands[i].getPrice());
         }
-
+        
+        // update owner color panel (indicator)
         for (int i = 0; i < lands.length && i < ownerColorPanels.length; i++) {
             int owner = lands[i].getOwnerIndex();
             ownerColorPanels[i].setBackground(owner >= 0 ? PLAYER_COLORS[owner] : Color.LIGHT_GRAY);
         }
-
+        
+        // update each player's status info
         for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {
             Player p = model.getPlayer(i);
+            
             balanceLabels[i].setText("$" + p.getBalance());
             positionLabels[i].setText(String.valueOf(p.getPosition()));
             statusLabels[i].setText(p.isActive() ? "Active" : "Bankrupt");
         }
-
+        
+        // update turn and dice label
         turnLabel.setText("Player " + (model.getCurrentTurn() + 1));
-        diceLabel.setText(controller.getLastDiceRoll() > 0
-            ? String.valueOf(controller.getLastDiceRoll()) : "-");
-
+        diceLabel.setText(controller.getLastDiceRoll() > 0 ? String.valueOf(controller.getLastDiceRoll()) : "-");
+        
+        // update slot number label
         for (int i = 0; i < slotNumLabels.length; i++) {
             String name = model.getSquareName(i);
             if (!name.isEmpty()) {
@@ -106,7 +111,8 @@ public class GameView {
             }
             slotPanels[i].setBorder(javax.swing.BorderFactory.createEtchedBorder());
         }
-
+        
+        // 
         for (int p = 0; p < GameModel.NUM_PLAYERS; p++) {
             Player player = model.getPlayer(p);
             if (player.isActive()) {
@@ -124,7 +130,8 @@ public class GameView {
                     javax.swing.BorderFactory.createLineBorder(PLAYER_COLORS[p], 3));
             }
         }
-
+        
+        // enable all dice buy and end button
         diceButton.setEnabled(!controller.hasRolled() && !model.isGameOver());
         buyButton.setEnabled(controller.canBuyLand());
         endButton.setEnabled(controller.hasRolled() && !model.isGameOver());
@@ -133,7 +140,9 @@ public class GameView {
     public void onRollDice() {
         controller.rollDice();
         refresh();
+        
         showMessage(controller.getLastMessage());
+        
         if (model.isGameOver() && model.getWinnerIndex() >= 0) {
             JOptionPane.showMessageDialog(gui,
                 "Player " + (model.getWinnerIndex() + 1) + " wins!",
