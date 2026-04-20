@@ -5,8 +5,9 @@
 package mini_monopoly;
 
 /**
- *
- * @author Kenne
+ * Hidden game editor window. Lets the user change balance, position,
+ * status, turn and land owners for testing. Opened by Ctrl+E or by
+ * triple clicking the bottom right corner of the main window.
  */
 public class GameEditorGUI extends javax.swing.JFrame {
 

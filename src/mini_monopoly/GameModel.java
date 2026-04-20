@@ -6,6 +6,10 @@ import org.json.simple.parser.JSONParser;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Model class. Stores the players, the lands, whose turn it is,
+ * and whether the game is over. Land data is loaded from board.json.
+ */
 public class GameModel {
 
     public static final int BOARD_SIZE = 44;

@@ -5,8 +5,10 @@
 package mini_monopoly;
 
 /**
- *
- * @author Kenne
+ * Main game window. Builds the board UI, the player panels and the
+ * dice / Buy / End Turn buttons. Creates the model, controller, view
+ * and wires up the hidden editor shortcuts (Ctrl+E and triple click
+ * bottom right).
  */
 public class MiniMonopolyGUI extends javax.swing.JFrame {
 

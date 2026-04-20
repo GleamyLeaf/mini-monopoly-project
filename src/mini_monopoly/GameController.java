@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Controller class. Handles the game logic like rolling dice,
+ * buying land, paying rent, trading, ending turn, and applying
+ * changes from the game editor.
+ */
 public class GameController {
 
     private GameModel model;
@@ -25,7 +30,6 @@ public class GameController {
         if (!current.isActive()) { endTurn(); return 0; }
 
         lastMessage = "";
-
         int die1 = random.nextInt(6) + 1;
         int die2 = random.nextInt(6) + 1;
         lastDiceRoll = die1 + die2;
@@ -122,6 +126,10 @@ public class GameController {
         return true;
     }
 
+    /**
+     * Trade a land from seller to buyer at the agreed price.
+     * Only works before rolling the dice.
+     */
     public boolean tradeLand(int sellerIdx, int buyerIdx, int landIdx, int price) {
         if (rolled || model.isGameOver()) return false;
         Land land = model.getLand(landIdx);
@@ -150,6 +158,10 @@ public class GameController {
         model.setCurrentTurn(next);
     }
 
+    /**
+     * Apply changes made in the game editor. Updates each player's
+     * balance, position, active flag, the current turn, and land owners.
+     */
     public void applyEditorChanges(int[] balances, int[] positions,
                                    boolean[] active, int turn, int[] landOwners) {
         for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {

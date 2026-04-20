@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+/**
+ * View class. Reads the model and updates the UI widgets. Also
+ * contains the handlers wired up by the main GUI buttons and menu.
+ */
 public class GameView {
 
     private static final Color[] PLAYER_COLORS = {
@@ -69,6 +73,7 @@ public class GameView {
         refresh();
     }
 
+    /** Reads the model and updates all labels / button states. */
     public void refresh() {
         Land[] lands = model.getLands();
         for (int i = 0; i < lands.length && i < landNameLabels.length; i++) {
@@ -151,6 +156,11 @@ public class GameView {
         new GameEditorGUI(model, controller, this).setVisible(true);
     }
 
+    /**
+     * Opens the trade dialog. Only allowed before rolling the dice.
+     * The current player picks buy or sell, picks the counterparty,
+     * picks the slot, enters a price, and the other player confirms.
+     */
     public void onOpenTrade() {
         if (model.isGameOver()) {
             JOptionPane.showMessageDialog(gui, "Game is over.");

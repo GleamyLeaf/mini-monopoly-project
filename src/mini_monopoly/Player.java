@@ -1,5 +1,9 @@
 package mini_monopoly;
 
+/**
+ * A player in the game. Tracks balance, position on the board,
+ * and whether they are still in the game (active) or bankrupt.
+ */
 public class Player {
 
     private int balance;
