@@ -1,13 +1,11 @@
 package mini_monopoly;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
  * Controller class. Handles the game logic like rolling dice,
- * buying land, paying rent, trading, ending turn, and applying
- * changes from the game editor.
+ * buying land, paying rent, ending turn, and applying changes
+ * from the game editor.
  */
 public class GameController {
 
@@ -67,15 +65,13 @@ public class GameController {
         }
         if (ownerIdx == turn || !model.getPlayer(ownerIdx).isActive()) return;
 
-        int multiplier = consecutiveMultiplier(pos, ownerIdx);
-        int rent = (land.getPrice() / 10) * multiplier;
+        int rent = land.getPrice() / 10;
         Player owner = model.getPlayer(ownerIdx);
         int pay = Math.min(rent, current.getBalance());
 
         current.setBalance(current.getBalance() - pay);
         owner.setBalance(owner.getBalance() + pay);
-        String mult = multiplier > 1 ? " (x" + multiplier + ")" : "";
-        lastMessage += "Paid $" + pay + " rent" + mult + " to Player " + (ownerIdx + 1) + ".\n";
+        lastMessage += "Paid $" + pay + " rent to Player " + (ownerIdx + 1) + ".\n";
 
         if (pay < rent) {
             current.setActive(false);
@@ -84,27 +80,6 @@ public class GameController {
                 if (l.getOwnerIndex() == turn) l.setOwnerIndex(-1);
             }
         }
-    }
-
-    private int consecutiveMultiplier(int landedSlot, int ownerIdx) {
-        int side = landedSlot / 11;
-        int run = 1;
-        for (int s = landedSlot - 1; s >= 0 && s / 11 == side; s--) {
-            if (!ownsProperty(s, ownerIdx)) break;
-            run++;
-        }
-        for (int s = landedSlot + 1; s < GameModel.BOARD_SIZE && s / 11 == side; s++) {
-            if (!ownsProperty(s, ownerIdx)) break;
-            run++;
-        }
-        if (run >= 3) return 3;
-        if (run == 2) return 2;
-        return 1;
-    }
-
-    private boolean ownsProperty(int slot, int ownerIdx) {
-        if (!model.isPropertySlot(slot)) return false;
-        return model.getLand(model.getLandIndexForSlot(slot)).getOwnerIndex() == ownerIdx;
     }
 
     public boolean canBuyLand() {
@@ -119,33 +94,13 @@ public class GameController {
     // core
     public boolean buyLand() {
         if (!canBuyLand()) return false;
-        
+
         Player p = model.getPlayer(model.getCurrentTurn());
         int idx = model.getLandIndexForSlot(p.getPosition());
         Land land = model.getLand(idx);
         p.setBalance(p.getBalance() - land.getPrice());
         land.setOwnerIndex(model.getCurrentTurn());
         lastMessage = "Bought " + land.getName() + " for $" + land.getPrice() + ".";
-        return true;
-    }
-
-    /**
-     * Trade a land from seller to buyer at the agreed price.
-     * Only works before rolling the dice.
-     */
-    public boolean tradeLand(int sellerIdx, int buyerIdx, int landIdx, int price) {
-        if (rolled || model.isGameOver()) return false;
-        Land land = model.getLand(landIdx);
-        if (land.getOwnerIndex() != sellerIdx) return false;
-        Player buyer = model.getPlayer(buyerIdx);
-        Player seller = model.getPlayer(sellerIdx);
-        if (buyer.getBalance() < price) return false;
-
-        buyer.setBalance(buyer.getBalance() - price);
-        seller.setBalance(seller.getBalance() + price);
-        land.setOwnerIndex(buyerIdx);
-        lastMessage = "Player " + (buyerIdx + 1) + " bought " + land.getName()
-            + " from Player " + (sellerIdx + 1) + " for $" + price + ".";
         return true;
     }
 
@@ -186,15 +141,6 @@ public class GameController {
         }
         rolled = false;
         checkWin();
-    }
-
-    public List<Integer> getOwnedProperties(int playerIndex) {
-        List<Integer> owned = new ArrayList<>();
-        Land[] lands = model.getLands();
-        for (int i = 0; i < lands.length; i++) {
-            if (lands[i].getOwnerIndex() == playerIndex) owned.add(i);
-        }
-        return owned;
     }
 
     private void checkWin() {
