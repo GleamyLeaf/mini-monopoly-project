@@ -106,26 +106,6 @@ public class GameController {
         return true;
     }
 
-    /**
-     * Trade a land from seller to buyer at the agreed price.
-     * Only works before rolling the dice.
-     */
-    public boolean tradeLand(int sellerIdx, int buyerIdx, int landIdx, int price) {
-        if (rolled || model.isGameOver()) return false;
-        Land land = model.getLand(landIdx);
-        if (land.getOwnerIndex() != sellerIdx) return false;
-        Player buyer = model.getPlayer(buyerIdx);
-        Player seller = model.getPlayer(sellerIdx);
-        if (buyer.getBalance() < price) return false;
-
-        buyer.setBalance(buyer.getBalance() - price);
-        seller.setBalance(seller.getBalance() + price);
-        land.setOwnerIndex(buyerIdx);
-        lastMessage = "Player " + (buyerIdx + 1) + " bought " + land.getName()
-            + " from Player " + (sellerIdx + 1) + " for $" + price + ".";
-        return true;
-    }
-
     public void endTurn() {
         rolled = false;
         lastDiceRoll = 0;
