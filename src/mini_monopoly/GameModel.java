@@ -64,6 +64,7 @@ public class GameModel {
         squareTypes[0] = SQ_GO; // slot 0 is GO
     }
 
+    // load from json file
     private void loadLands() {
         try {
             InputStreamReader reader = new InputStreamReader(
