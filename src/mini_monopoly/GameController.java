@@ -86,6 +86,7 @@ public class GameController {
 
     public boolean canBuyLand() {
         if (!rolled) return false;
+        
         Player p = model.getPlayer(model.getCurrentTurn());
         int slot = p.getPosition();
         if (!model.isPropertySlot(slot)) return false;
