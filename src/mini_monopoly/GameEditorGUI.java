@@ -47,6 +47,7 @@ public class GameEditorGUI extends javax.swing.JFrame {
             rows[i][1] = lands[i].getName();
             rows[i][2] = ownerLabel(lands[i].getOwnerIndex());
         }
+        
         // only the owner column is editable
         javax.swing.table.DefaultTableModel tm = new javax.swing.table.DefaultTableModel(rows, cols) {
             @Override public boolean isCellEditable(int r, int c) { return c == 2; }
