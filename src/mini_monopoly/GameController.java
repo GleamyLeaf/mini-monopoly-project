@@ -3,9 +3,9 @@ package mini_monopoly;
 import java.util.Random;
 
 /**
- * Controller class. Handles the game logic like rolling dice,
- * buying land, paying rent, ending turn, and applying changes
- * from the game editor.
+ * Game logic lives here. Dice, buying, rent, end turn, win check.
+ * Also receives the edits from GameEditorGUI when the user saves.
+ * TODO maybe split rent stuff into its own helper class later
  */
 public class GameController {
 
@@ -37,6 +37,7 @@ public class GameController {
         int newPos = (oldPos + lastDiceRoll) % GameModel.BOARD_SIZE;
         current.setPosition(newPos);
 
+        // wrapped around = passed GO, give salary
         if (newPos < oldPos) {
             current.setBalance(current.getBalance() + GameModel.GO_SALARY);
             lastMessage += "Passed GO! +$" + GameModel.GO_SALARY + ".\n";
@@ -73,6 +74,7 @@ public class GameController {
         owner.setBalance(owner.getBalance() + pay);
         lastMessage += "Paid $" + pay + " rent to Player " + (ownerIdx + 1) + ".\n";
 
+        // bankruptcy stuff - couldnt pay full rent, free up their lands
         if (pay < rent) {
             current.setActive(false);
             lastMessage += "Player " + (turn + 1) + " is bankrupt!\n";
@@ -117,10 +119,7 @@ public class GameController {
         model.setCurrentTurn(next);
     }
 
-    /**
-     * Apply changes made in the game editor. Updates each player's
-     * balance, position, active flag, the current turn, and land owners.
-     */
+    // pushes edits from the editor window back into the model
     public void applyEditorChanges(int[] balances, int[] positions,
                                    boolean[] active, int turn, int[] landOwners) {
         for (int i = 0; i < GameModel.NUM_PLAYERS; i++) {

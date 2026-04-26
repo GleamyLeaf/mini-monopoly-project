@@ -4,11 +4,12 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
- * View class. Reads the model and updates the UI widgets. Also
- * contains the handlers wired up by the main GUI buttons.
+ * Reads model + repaints widgets, plus the button handlers.
+ * Refresh is called after pretty much every action
  */
 public class GameView {
 
+    // p1 to p4 colors (red/green/blue/yellow ish)
     private static final Color[] PLAYER_COLORS = {
         new Color(255, 102, 102),
         new Color(153, 255, 153),
@@ -63,7 +64,7 @@ public class GameView {
         refresh();
     }
 
-    /** Reads the model and updates all labels / button states. */
+    // redraw everything from current model state
     public void refresh() {
         // update land name and price labels in ui
         Land[] lands = model.getLands();

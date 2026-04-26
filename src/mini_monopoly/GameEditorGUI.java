@@ -5,9 +5,9 @@
 package mini_monopoly;
 
 /**
- * Hidden game editor window. Lets the user change balance, position,
- * status, turn and land owners for testing. Opened by Ctrl+E or by
- * triple clicking the bottom right corner of the main window.
+ * Hidden editor window for testing/debug ig
+ * lets you tweak balance, position, status, whose turn it is and land owners
+ * open with ctrl+E or triple click the bottom-right corner
  */
 public class GameEditorGUI extends javax.swing.JFrame {
 
@@ -38,6 +38,7 @@ public class GameEditorGUI extends javax.swing.JFrame {
     }
 
     private void installLandTable() {
+        // build the land table rows
         Land[] lands = model.getLands();
         String[] cols = {"Slot", "Land", "Owner"};
         Object[][] rows = new Object[lands.length][3];
@@ -46,6 +47,7 @@ public class GameEditorGUI extends javax.swing.JFrame {
             rows[i][1] = lands[i].getName();
             rows[i][2] = ownerLabel(lands[i].getOwnerIndex());
         }
+        // only the owner column is editable
         javax.swing.table.DefaultTableModel tm = new javax.swing.table.DefaultTableModel(rows, cols) {
             @Override public boolean isCellEditable(int r, int c) { return c == 2; }
         };
@@ -60,6 +62,7 @@ public class GameEditorGUI extends javax.swing.JFrame {
         scroll.setBorder(javax.swing.BorderFactory.createTitledBorder("Land Ownership"));
         scroll.setPreferredSize(new java.awt.Dimension(320, 0));
 
+        // stuff it on the right side of the existing form
         javax.swing.JPanel existing = (javax.swing.JPanel) getContentPane();
         javax.swing.JPanel wrapper = new javax.swing.JPanel(new java.awt.BorderLayout());
         wrapper.add(existing, java.awt.BorderLayout.CENTER);

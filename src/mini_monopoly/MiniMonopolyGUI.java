@@ -5,10 +5,8 @@
 package mini_monopoly;
 
 /**
- * Main game window. Builds the board UI, the player panels and the
- * dice / Buy / End Turn buttons. Creates the model, controller, view
- * and wires up the hidden editor shortcuts (Ctrl+E and triple click
- * bottom right).
+ * Main window -- board + player panels + dice/buy/end buttons
+ * also makes the model/controller/view and hooks up the editor shortcuts
  */
 public class MiniMonopolyGUI extends javax.swing.JFrame {
 
@@ -73,8 +71,8 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
 
     private static final int CORNER_HIT_SIZE = 100;
 
-    // AI assist
     private void installEditorShortcuts() {
+        // ok ctrl+E opens the editor
         javax.swing.KeyStroke ctrlE = javax.swing.KeyStroke.getKeyStroke(
             java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK);
         getRootPane().getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW)
@@ -86,6 +84,7 @@ public class MiniMonopolyGUI extends javax.swing.JFrame {
             }
         });
 
+        // triple click bottom-right corner = open editor (kinda janky but it works)
         java.awt.Toolkit.getDefaultToolkit().addAWTEventListener(event -> {
             if (!(event instanceof java.awt.event.MouseEvent)) return;
             java.awt.event.MouseEvent me = (java.awt.event.MouseEvent) event;

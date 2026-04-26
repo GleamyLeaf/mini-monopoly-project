@@ -1,9 +1,6 @@
 package mini_monopoly;
 
-/**
- * A land slot on the board. Has a name, price, and an owner index
- * (-1 means no owner).
- */
+// one tile on the board (ownerIndex -1 = nobody)
 public class Land {
 
     private String name;
