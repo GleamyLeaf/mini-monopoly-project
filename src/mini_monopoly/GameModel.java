@@ -7,8 +7,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Model class. Stores the players, the lands, whose turn it is,
- * and whether the game is over. Land data is loaded from board.json.
+ * Holds the game state -- players, lands, current turn etc
+ * Board layout comes from /resources/board.json (loaded once at start, for now)
  */
 public class GameModel {
 
@@ -43,6 +43,7 @@ public class GameModel {
         gameOver = false;
         winnerIndex = -1;
 
+        // map every slot to a land index, -1 if not a property slot
         slotToLandMap = new int[BOARD_SIZE];
         for (int i = 0; i < BOARD_SIZE; i++) {
             slotToLandMap[i] = -1;
@@ -60,7 +61,7 @@ public class GameModel {
         for (int i = 0; i < BOARD_SIZE; i++) {
             squareTypes[i] = isPropertySlot(i) ? SQ_PROPERTY : SQ_BLANK;
         }
-        squareTypes[0] = SQ_GO;
+        squareTypes[0] = SQ_GO; // slot 0 is GO
     }
 
     private void loadLands() {
